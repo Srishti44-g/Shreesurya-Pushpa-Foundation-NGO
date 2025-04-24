@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <title>Donate - Shreesurya Pushpa Foundation</title>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="responsive.css" as="style">
+    <link rel="preload" href="mobile-nav.css" as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navigation.css">
+    <link rel ="stylesheet" href ="mobile-nav.css">
+    <link rel="stylesheet" href="responsive.css">
+    
+    <style>
+        /* Header and Navigation Fixes */
+        .top-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1002;
+            background: linear-gradient(to right, #fff 60%, #fdf2e3);
+        }
+
+        .main-nav {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 100%;
+            z-index: 1001;
+            background: white;
+        }
+
+        .donate-section {
+            margin-top: 110px;
+            z-index: 1;
+        }
+
+        /* Base styles (mobile first) */
+        .container {
+            width: 100%;
+            padding: 0 15px;
+            margin: 0 auto;
+        }
+
+        .donation-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Mobile-first order */
+        .payment-methods-section {
+            order: 1;
+        }
+
+        .form-section {
+            order: 2;
+        }
+
+        .qr-scan-container {
+            margin-bottom: 2rem;
+        }
+
+        .form-section, 
+        .payment-methods-section {
+            width: 100%;
+        }
+
+        .form-panel, 
+        .info-panel {
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .form-row {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Tablets (portrait) */
+        @media (min-width: 600px) {
+            .container {
+                max-width: 540px;
+            }
+
+            .form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .qr-scan-container {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Tablets (landscape) and small laptops */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+                padding: 0 2px;
+            }
+
+            .donation-container {
+                display: grid;
+                grid-template-columns: 3fr 2fr;
+                gap: 30px;
+                align-items: start;
+            }
+
+            .payment-methods-section,
+            .form-section {
+                order: unset;
+            }
+
+            .payment-methods-section {
+                position: sticky;
+                top: 20px;
+            }
+        }
+
+        /* Desktops */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 960px;
+                padding: 0 30px;
+            }
+
+            .donation-container {
+                gap: 40px;
+            }
+
+            .form-panel, 
+            .info-panel {
+                padding: 25px;
+            }
+        }
+
+        /* Large desktops */
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1200px;
+            }
+
+            .donation-container {
+                grid-template-columns: 2fr 1fr;
+                gap: 50px;
+            }
+        }
+
+        .emergency-contact {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: var(--gradient);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            z-index: 1000;
+            font-weight: 500;
+        }
+
+        .emergency-contact i {
+            font-size: 20px;
+            animation: shake 1.5s ease infinite;
+        }
+
+        .emergency-contact span {
+            font-size: 14px;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            20%, 60% { transform: rotate(-10deg); }
+            40%, 80% { transform: rotate(10deg); }
+        }
+
+        .info-box .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .info-box .info-item i {
+            font-size: 18px;
+            color: var(--nav-color);
+            margin-top: 3px;
+        }
+
+        .info-box .info-item div {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .info-box .info-item p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Enhanced Bank Account Card Styles */
+        .bank-account-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border: 2px solid #f0f0f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .bank-account-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(51, 102, 204, 0.1);
+        }
+
+        .card-header i {
+            font-size: 28px;
+            color: #3366CC;
+            background: rgba(51, 102, 204, 0.1);
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .card-header h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .account-details {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(51, 102, 204, 0.1);
+        }
+
+        .detail-row {
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            gap: 20px;
+            padding: 15px;
+            border-bottom: 1px solid rgba(51, 102, 204, 0.1);
+            align-items: center;
+        }
+
+        .label {
+            color: #555;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .value {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            color: #333;
+            letter-spacing: 0.5px;
+            text-align: left;
+        }
+
+        .copy-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .copy-button {
+            padding: 3px 8px;
+            min-width: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .bank-account-card {
+                padding: 20px;
+            }
+
+            .detail-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            .value {
+                font-size: 0.95rem;
+            }
+
+            .copy-wrapper {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 5px;
+            }
+
+            .copy-button {
+                padding: 3px 6px;
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Add hidden translate element -->
+  <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px;"></div>
+  
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <nav class="mobile-nav-menu">
+            <ul>
+                <li><a href="index.html#home" class="active"><i class="fas fa-house-user"  style="color:#3366CC  ; font-size: 20px;gap: 10px;"></i> Home</span></a></li>
+                <li><a href="index.html#about"><i class="fas fa-compass" style="color:#3366CC  ; font-size: 20px;"></i>  Mission</span></a></li>
+                <li><a href="gallery.html"><i class="fas fa-photo-film" style="color:#3366CC  ; font-size: 20px;"></i>  Gallery</span></a></li>
+                <li><a href="events.html"><i class="fas fa-calendar-alt" style="color:#3366CC; font-size: 20px;"></i> Events</span></a></li>
+                <li><a href="index.html#approval-letters"><i class="fas fa-circle-check" style="color:#3366CC  ; font-size: 20px;"></i><span> Approval</span></a></li>
+                <li><a href="index.html#programs"><i class="fas fa-laptop-code" style="color:#3366CC  ; font-size: 20px;"></i> <span> Programs</span></a></li>
+                <li><a href="index.html#impact"><i class="fas fa-bolt" style="color:#3366CC  ; font-size: 20px;"></i><span> Impact</span></a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope-open-text" style="color: #3366CC  ; font-size: 20px;"></i><span>  Contact</span></a></li>
+                <li><a href="https://shreesuryapushpanews.co.in/" target="_blank"><i class="fas fa-broadcast-tower" style="color:#3366CC  ; font-size: 20px;"></i><span>  News</span></a></li>
+                <li><a href="books.html"><i class="fas fa-book" style="color:#3366CC  ; font-size: 20px;"></i><span> Books</span></a></li>
+                <li><a href="book_distribution.html"><i class="fas fa-spell-check" style="color:#3366CC ; font-size: 20px;"></i><span> Literacy</a></span></li>
+                <li><a href="volunteer.html"><i class="fas fa-hand-holding-heart" style="color:#3366CC  ; font-size: 20px;"></i><span>  Volunteer</span></a></li>
+                <li><a href="donate.html" class="donate-btn" >Donate</a></li>
+            </ul>
+        </nav>
+        <div class="nav-backdrop"></div>
+    </div>
+
+    <!-- Header -->
+  <header>
+    <div class="top-header">
+        <div class="container">
+            <div class="header-container">
+                <div class="logo-section">
+                    <img src="logo.png" alt="Shreesurya Pushpa Foundation Logo" class="logo-img">
+                    <div class="logo-text">
+                        <h1>Shreesurya Pushpa Foundation</h1>
+                        <span>Empowering Communities, Transforming Lives</span>
+                    </div>
+                </div>
+                
+                <div class="contact-lang-card">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+918103612005">+91 81036 12005</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:shreesuryapushpa@gmail.com">shreesuryapushpa@gmail.com</a>
+                    </div>
+                    <div class="language-switcher">
+                        <button onclick="changeLanguage('en')" class="lang-btn active" data-lang="en">English</button>
+                        <button onclick="changeLanguage('hi')" class="lang-btn" data-lang="hi">हिंदी</button>
+                    </div>
+                    <div class="social-header-icons">
+                        <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" class="header-social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://wa.me/919406130259" target="_blank" class="header-social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.facebook.com/ShreeSuryaPushpaFoundation" target="_blank" class="header-social-icon">
+                            <i class="fab fa-facebook" "></i>
+                        </a>
+                    </div>
+                    <div id="google_translate_element" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="main-nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-container">
+        <button class="hamburger-menu" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="index.html#home" class="active">Home</a></li>
+          <li><a href="index.html#about">Mission</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="index.html#approval-letters">Approval</a></li>
+          <li><a href="index.html#programs">Programs</a></li>
+          <li><a href="index.html#impact">Impact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://shreesuryaPushpanews.co.in/" target="_blank">News</a></li>
+          <li><a href="books.html">Books</a></li>
+          <li><a href="book_distribution.html">Literacy</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
+          <li><a href="donate.html" class="donate-btn">Donate</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="nav-overlay"></div>
+    <a href="tel:+918103612005" class="emergency-contact">
+        <i class="fas fa-phone-alt fa-shake"></i>
+        <span>Emergency Helpline</span>
+    </a>
+  
+    <section class="donate-section">
+        <div class="container">
+            <br>
+            <br>
+            <br>
+            <h2 class="section-title"> Make a Contribution</h2>
+            <p class="section-desc">Your support helps us create positive change in our community</p>
+
+            <div class="donation-container">
+                <div class="form-section">
+                    <div class="form-panel">
+                        <h3><i class="far fa-calendar-alt"></i>  Schedule a Visit</h3>
+                        <form id="visitForm" action="https://script.google.com/macros/s/AKfycbxaYKk5X84IEywNKyPTGv7RlgelfApAPdDFKpGwmaB7hblHcHEPQWPV8jHZg13XXcla/exec" method="POST">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name"><i class="fas fa-user"></i> Your Name</label>
+                                    <input type="text" id="name" name="name" required class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email"><i class="fas fa-envelope"></i> Your Email</label>
+                                    <input type="email" id="email" name="email" required class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" required class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="preferred_date"><i class="fas fa-calendar"></i> Preferred Visit Date</label>
+                                    <input type="date" id="preferred_date" name="preferred_date" required class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="preferred_time"><i class="far fa-clock"></i> Preferred Time</label>
+                                <select id="preferred_time" name="preferred_time" required class="form-control">
+                                    <option value="">Select Time</option>
+                                    <option value="10:00 AM">10:00 AM</option>
+                                    <option value="11:00 AM">11:00 AM</option>
+                                    <option value="12:00 PM">12:00 PM</option>
+                                    <option value="2:00 PM">2:00 PM</option>
+                                    <option value="3:00 PM">3:00 PM</option>
+                                    <option value="4:00 PM">4:00 PM</option>
+                                    <option value="5:00 PM">5:00 PM</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-calendar-check"></i> Schedule Visit
+                            </button>
+                        </form>
+                    </div>
+                    <div class="info-panel">
+                        <h3>Direct Contribution Information</h3>
+                        <div class="info-box">
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Visit Us:</strong>
+                                    <p>Sarju Bagicha Masanganj<br>Bilaspur, Chhattisgarh 495001</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <i class="far fa-clock"></i>
+                                <div>
+                                    <strong>Office Hours:</strong>
+                                    <p>Monday to Saturday: 10:00 AM - 6:00 PM</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <i class="fas fa-user"></i>
+                                <div>
+                                    <strong>Contact Person:</strong>
+                                    <p>Phone: +91 81036 12005<br>Email: shreesuryapushpa@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contribution-guidelines">
+                            <h4><i class="fas fa-clipboard-list"></i> Guidelines for Cash Contributions:</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Please bring a valid ID proof for documentation purposes</li>
+                                <li><i class="fas fa-check"></i> Contributions above ₹20,000 should preferably be made by cheque</li>
+                                <li><i class="fas fa-check"></i> A receipt will be provided for your contribution</li>
+                                <li><i class="fas fa-check"></i> All donations are eligible for tax benefits under 80G</li>
+                            </ul>
+                        </div>
+
+                        <div class="tax-benefit-info">
+                            <h4><i class="fas fa-hand-holding-usd"></i> Tax Benefits</h4>
+                            <p>All donations to Shreesurya Pushpa Foundation are eligible for tax deduction under Section 80G of the Income Tax Act.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-methods-section">
+                    <!-- Bank Account Details Card -->
+                    <div class="bank-account-card">
+                        <div class="card-header">
+                            <i class="fas fa-university"></i>
+                            <h3>Bank Account Details</h3>
+                        </div>
+                        <div class="account-details">
+                            <div class="detail-row">
+                                <span class="label">Account Name</span>
+                                <span class="value">Shreesurya pushpa foundation</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Account No.</span>
+                                <div class="copy-wrapper">
+                                    <span class="value" id="accountNumber" translate="no">42380101003683</span>
+                                    <button onclick="copyText('accountNumber')" class="copy-button">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">IFSC Code</span>
+                                <div class="copy-wrapper">
+                                    <span class="value" id="ifscCode" translate="no">UBIN0542385</span>
+                                    <button onclick="copyText('ifscCode')" class="copy-button">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QR Code Section -->
+                    <div class="qr-scan-container">
+                        <div class="qr-info">
+                            <h3>Quick Donation via UPI</h3>
+                            <p>Scan the QR code with any UPI payment app to make a secure donation</p>
+                            <div class="qr-image">
+                                <a href="Images/QR.jpeg" data-lightbox="donate-qr" data-title="UPI Donation QR Code">
+                                    <img src="Images/QR.jpeg" alt="Donation QR Code" class="qr-code">
+                                </a>
+                            </div>
+                            <div class="supported-apps">
+                                <span>Supported Apps:</span>
+                                <div class="app-icons">
+                                    <i class="fab fa-google-pay"></i>
+                                    <i class="fab fa-amazon-pay"></i>
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receipt Preview Section -->
+                    <div class="receipt-container">
+                        <h4>Donation Receipt Sample</h4>
+                        <div class="receipt-image-container">
+                            <a href="Images/receipt.jpeg" data-lightbox="donate-receipt" data-title="Sample Donation Receipt">
+                                <img src="Images/receipt.jpeg" alt="Donation Receipt Sample" class="receipt-image">
+                            </a>
+                        </div>
+                        <div class="receipt-info">
+                            <i class="fas fa-info-circle"></i>
+                            <p>You will receive an official receipt for your contribution</p>
+                        </div>
+                        <ul class="receipt-features">
+                            <li><i class="fas fa-check-circle"></i> Section 80G tax deduction certificate</li>
+                            <li><i class="fas fa-check-circle"></i> Official NGO letterhead</li>
+                            <li><i class="fas fa-check-circle"></i> Digital signature included</li>
+                            <li><i class="fas fa-check-circle"></i> Instant email delivery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>Shreesurya Pushpa Foundation</h3>
+            <p>Empowering Lives, Enriching Communities through sustainable development initiatives. Together, we can make a difference in the lives of those who need it most.</p>
+            <div class="social-icons">
+            <a href=https://www.facebook.com/ShreeSuryaPushpaFoundation?rdid=Pe29XfFrB7dWCKFy&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18vvQP7Fq1%2F#" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://twitter.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="https://instagram.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://linkedin.com/company/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" rel="noopener" class="social-icon" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html#home">Home</a></li>
+              <li><a href="index.html#about">About Us</a></li>
+              <li><a href="gallery.html">Gallery</a></li>
+              <li><a href="index.html#programs">Our Programs</a></li>
+              <li><a href="index.html#impact">Impact</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-column">
+            <h3>Our Programs</h3>
+            <ul class="footer-links">
+              <li><a href="index.html#programs">Agriculture & Farming</a></li>
+              <li><a href="index.html#programs">Education & Literacy</a></li>
+              <li><a href="index.html#programs">Healthcare Initiatives</a></li>
+              <li><a href="index.html#programs">Environmental Projects</a></li>
+              <li><a href="index.html#programs">Women Empowerment</a></li>
+              <li><a href="index.html#programs">Skill Development</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-column">
+            <h3>Contact Info</h3>
+            <ul class="footer-links">
+              <li>📍 Sarju Bagicha Masanganj, Bilaspur, Chhattisgarh 495001</li>
+              <li>📞 +91 81036 12005</li>
+              <li>✉️ shreesuryapushpa@gmail.com</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="copyright">
+          <p>&copy; 2025 Shreesurya Pushpa Foundation. All Rights Reserved. | Designed with 💖 for social impact</p>
+        </div>
+      </div>
+    </footer>
+    <!-- Add Google Translate API -->
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script type="text/javascript">
+      function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+              pageLanguage: 'en',
+              includedLanguages: 'en,hi',
+              layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+              autoDisplay: false,
+              multilanguagePage: true
+          }, 'google_translate_element');
+      }
+
+      function copyText(elementId) {
+          const textToCopy = document.getElementById(elementId).textContent;
+          navigator.clipboard.writeText(textToCopy).then(() => {
+              alert('Copied to clipboard!');
+          }).catch(err => {
+              console.error('Failed to copy text: ', err);
+          });
+      }
+  </script>
+    <script src="mobile-nav.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

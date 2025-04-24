@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+  <meta name="theme-color" content="#FFA500">
+  <meta name="keywords" content="foundation, charity, social work, community development, NGO">
+  <meta name="author" content="Shreesurya Pushpa Foundation">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable"="yes">
+  <link rel="icon" type="image/x-icon" href="logo.png">
+  <link rel ="stylesheet" href = "Google Sheets.css">
+  <title>Shreesurya Pushpa Foundation - Empowering Lives, Enriching Communities</title>
+  <!-- Preload critical assets -->
+  <link rel="preload" href="logo.png" as="image">
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="preload" href="responsive.css" as="style">
+  <link rel="preload" href="mobile-nav.css" as="style">
+  <link rel="preload" href="navigation.css" as="style">
+  <!-- Defer non-critical CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <link rel ="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
+  <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="mobile-nav.css">
+  <link rel="stylesheet" href="responsive.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<style>
+.hero {
+    position: relative;
+    padding: 0px 0;
+    color: white;
+    overflow: hidden;
+    min-height: 400px; /* Reduced from 600px */
+}
+
+.hero-bg-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    z-index: 1;
+}
+
+.bg-item {
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.bg-item:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8));
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    margin-top: 10px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 80px 50px;
+}
+
+.hero-text h1 {
+    font-size: 2.2em; /* Slightly smaller */
+    margin-bottom: 15px;
+}
+
+.hero-text p {
+    font-size: 1em;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 40px 0;
+        min-height: 350px;
+    }
+    
+    .hero-bg-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero-text h1 {
+        font-size: 1.8em;
+    }
+
+    .pdf-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .pdf-btn {
+        flex: 1;
+        max-width: 120px;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+  <!-- Add hidden translate element -->
+  <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px;"></div>
+  
+    <!-- Header -->
+  <header>
+    <div class="top-header">
+        <div class="container">
+            <div class="header-container">
+                <div class="logo-section">
+                    <img src="logo.png" alt="Shreesurya Pushpa Foundation Logo" class="logo-img">
+                    <div class="logo-text">
+                        <h1>Shreesurya Pushpa Foundation</h1>
+                     <span>Empowering Communities, Transforming Lives</span>
+                    </div>
+                </div>
+                
+                <div class="contact-lang-card">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+918103612005">+91 81036 12005</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:shreesuryapushpa@gmail.com">shreesuryapushpa@gmail.com</a>
+                    </div>
+                    <div class="language-switcher">
+                        <button onclick="changeLanguage('en')" class="lang-btn active" data-lang="en">English</button>
+                        <button onclick="changeLanguage('hi')" class="lang-btn" data-lang="hi">हिंदी</button>
+                    </div>
+                    <div class="social-header-icons">
+                        <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" class="header-social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://wa.me/919406130259" target="_blank" class="header-social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.facebook.com/ShreeSuryaPushpaFoundation" target="_blank" class="header-social-icon">
+                            <i class="fab fa-facebook" "></i>
+                        </a>
+                    </div>
+                    <div id="google_translate_element" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="main-nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-container">
+        <button class="hamburger-menu" aria-label="Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="#home" class="active"></i> Home</a></li>
+          <li><a href="#about">Mission</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="#approval-letters">Approval</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://shreesuryapushpanews.co.in/" target="_blank">News</a></li>
+          <li><a href="books.html">Books</a></li>
+          <li><a href="book_distribution.html">Literacy</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
+          <li><a href="donate.html" class="donate-btn">Donate</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="nav-overlay"></div>
+    <a href="tel:+918103612005" class="emergency-contact">
+        <i class="fas fa-phone-alt fa-shake"></i>
+        <span>Emergency Helpline</span>
+    </a>
+  </header>
+
+  <div class="mobile-nav">
+    <div class="mobile-nav-header">
+        <button class="mobile-menu-btn" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <nav class="mobile-nav-menu">
+        <ul>
+            <li><a href="#home" class="active"><i class="fas fa-house-user"  style="color:#3366CC  ; font-size: 20px;gap: 10px;"></i> Home</span></a></li>
+            <li><a href="#about"><i class="fas fa-compass" style="color:#3366CC  ; font-size: 20px;"></i>  Mission</span></a></li>
+            <li><a href="gallery.html"><i class="fas fa-photo-film" style="color:#3366CC  ; font-size: 20px;"></i>  Gallery</span></a></li>
+            <li><a href="events.html"><i class="fas fa-calendar-alt" style="color:#3366CC; font-size: 20px;"></i> Events</span></a></li>
+            <li><a href="#approval-letters"><i class="fas fa-circle-check" style="color:#3366CC  ; font-size: 20px;"></i><span> Approval</span></a></li>
+            <li><a href="#programs"><i class="fas fa-laptop-code" style="color:#3366CC  ; font-size: 20px;"></i> <span> Programs</span></a></li>
+            <li><a href="#impact"><i class="fas fa-bolt" style="color:#3366CC  ; font-size: 20px;"></i><span> Impact</span></a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope-open-text" style="color: #3366CC  ; font-size: 20px;"></i><span>  Contact</span></a></li>
+            <li><a href="https://shreesuryapushpanews.co.in/" target="_blank"><i class="fas fa-broadcast-tower" style="color:#3366CC  ; font-size: 20px;"></i><span>  News</span></a></li>
+            <li><a href="books.html"><i class="fas fa-book" style="color:#3366CC  ; font-size: 20px;"></i><span> Books</span></a></li>
+            <li><a href="book_distribution.html"><i class="fas fa-spell-check" style="color:#3366CC ; font-size: 20px;"></i><span> Literacy</a></span></li>
+            <li><a href="volunteer.html"><i class="fas fa-hand-holding-heart" style="color:#3366CC  ; font-size: 20px;"></i><span>  Volunteer</span></a></li>
+            <li><a href="donate.html" class="donate-btn" >Donate</a></li>
+        </ul>
+    </nav>
+    <div class="nav-backdrop"></div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-bg-grid">
+        <div class="bg-item" style="background-image: url('Hero/women.jpg')"></div>
+        <div class="bg-item" style="background-image: url('Hero/community.jpg')"></div>
+        <div class="bg-item" style="background-image: url('Hero/education.jpg')"></div>
+        <div class="bg-item" style="background-image: url('Hero/blood-donation.jpg')"></div>
+        <div class="bg-item" style="background-image: url('Hero/healthcare.jpg')"></div>
+        <div class="bg-item" style="background-image: url('Hero/enivorment.jpg')"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Empowering Lives, Enriching Communities</h1>
+                <p>Shreesurya Pushpa Foundation is dedicated to creating positive change through education, healthcare, environmental sustainability, and community development programs.</p>
+                <div class="cta-buttons">
+                    <a href="volunteer.html" class="cta-btn primary-btn">Support Our Cause</a>
+                    <a href="#about" class="cta-btn secondary-btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- After hero section and before about section -->
+<section class="organization-info">
+    <div class="info-cards-container">
+        <div class="info-card">
+            <div class="info-card-header">
+                <div class="info-card-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div>
+                    <h3 class="info-card-title">12AB Registration</h3>
+                    <div class="info-card-value"><span translate="no">ABHCS5892B24BP01</span></div>
+                </div>
+            </div>
+            <p class="info-card-desc">Income Tax Registration under Section 12AB</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card-header">
+                <div class="info-card-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <div>
+                    <h3 class="info-card-title">80G Certificate</h3>
+                    <div class="info-card-value"><span translate="no">ABHCS5892B24BP02</span></div>
+                </div>
+            </div>
+            <p class="info-card-desc">Tax Exemption Certificate under Section 80G</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card-header">
+                <div class="info-card-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <div>
+                    <h3 class="info-card-title">PAN Number</h3>
+                    <div class="info-card-value"><span translate="no">ABHCS5892B</span></div>
+                </div>
+            </div>
+            <p class="info-card-desc">Permanent Account Number</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card-header">
+                <div class="info-card-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div>
+                    <h3 class="info-card-title">CSR Registration</h3>
+                    <div class="info-card-value"><span translate="no">CSR00087742</span></div>
+                </div>
+            </div>
+            <p class="info-card-desc">Corporate Social Responsibility Registration</p>
+        </div>
+    </div>
+</section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="section-title">Our Mission</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>Shreesurya Pushpa Foundation is a non-profit organization committed to uplifting underprivileged communities through sustainable development initiatives. Founded in 2021, our foundation works tirelessly to create opportunities for education, provide healthcare access, promote environmental sustainability, and empower women through skill development.</p>
+          <p>We believe in a holistic approach to community development, addressing immediate needs while building long-term solutions that enable communities to thrive independently. Our dedicated team of volunteers and professionals work hand-in-hand with local communities to understand their unique challenges and develop tailored solutions.</p>
+          <p>Like the sun (Surya) that brings light and energy to all life, we strive to bring positive change and illuminate the path toward a better future for those in need.</p>
+        </div>
+        <div class="about-img">
+          <img src="Images/office (2).jpeg" alt="Shree Surya Foundation volunteers">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approval Letters Section -->
+  <section class="approval-letters" id="approval-letters">
+    <div class="container">
+        <div class="section-title">
+            <h2>Official Approvals</h2>
+            <p>Our foundation is recognized by various government bodies</p>
+        </div>
+        <div class="approval-columns">
+            <div class="approval-column">
+                <div class="approval-item">
+                    <div class="pdf-container">
+                        <embed src="Gallery/12AB SURYA Pushpa Foundation.pdf" type="application/pdf">
+                    </div>
+                    <div class="approval-info">
+                        <h4>Registration Certificate</h4>
+                        <div class="pdf-actions">
+                            <a href="Gallery/12AB SURYA Pushpa Foundation.pdf" target="_blank" class="pdf-btn view">View PDF</a>
+                            <a href="Gallery/12AB SURYA Pushpa Foundation.pdf" download class="pdf-btn download">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="approval-column">
+                <div class="approval-item">
+                    <div class="pdf-container">
+                        <embed src="Gallery/80G SURYA Pushpa Foundation.pdf" type="application/pdf">
+                    </div>
+                    <div class="approval-info">
+                        <h4>Tax Exemption Certificate</h4>
+                        <div class="pdf-actions">
+                            <a href="Gallery/80G SURYA Pushpa Foundation.pdf" target="_blank" class="pdf-btn view">View PDF</a>
+                            <a href="Gallery/80G SURYA Pushpa Foundation.pdf" download class="pdf-btn download">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="approval-column">
+                <div class="approval-item">
+                    <div class="pdf-container">
+                        <embed src="Gallery/Approval Letter for form CSR1.PDF" type="application/pdf">
+                    </div>
+                    <div class="approval-info">
+                        <h4>CSR Registration Certificate</h4>
+                        <div class="pdf-actions">
+                            <a href="Gallery/Approval Letter for form CSR1.PDF" target="_blank" class="pdf-btn view">View PDF</a>
+                            <a href="Gallery/Approval Letter for form CSR1.PDF" download class="pdf-btn download">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- Programs Section -->
+  <section class="programs" id="programs">
+    <div class="container">
+      <h2 class="section-title">Our Programs</h2>
+      <div class="programs-grid">
+        <div class="program-card">
+          <div class="program-img education-img"></div>
+          <div class="program-content">
+            <h3>Education & Literacy</h3>
+            <p>We provide quality education to underprivileged children, operate after-school learning centers, train teachers, and supply educational materials to resource-limited schools.</p>
+          </div>
+        </div>
+        
+        <div class="program-card">
+          <div class="program-img healthcare-img"></div>
+          <div class="program-content">
+            <h3>Healthcare Initiatives</h3>
+            <p>Our mobile medical camps, health awareness programs, and nutrition support services ensure that essential healthcare reaches remote and underserved communities.</p>
+          </div>
+        </div>
+        
+        <div class="program-card">
+          <div class="program-img environment-img"></div>
+          <div class="program-content">
+            <h3>Environmental Sustainability</h3>
+            <p>Through tree plantation drives, clean-up campaigns, and renewable energy projects, we promote environmental consciousness and sustainable living practices.</p>
+          </div>
+        </div>
+        
+        <div class="program-card">
+          <div class="program-img women-img"></div>
+          <div class="program-content">
+            <h3>Women Empowerment</h3>
+            <p>We conduct skill development workshops, vocational training, and microfinance initiatives to help women become financially independent and community leaders.</p>
+          </div>
+        </div>
+
+        <div class="program-card">
+          <div class="program-img food-img"></div>
+          <div class="program-content">
+            <h3>Food & Shelter Programs</h3>
+            <p>We provide food security and shelter to the homeless and marginalized communities through our feeding programs and housing initiatives.</p>
+          </div>
+        </div>  
+
+        <div class="program-card">
+          <div class="program-img skill-img"></div>
+          <div class="program-content">
+            <h3>Skill Development</h3>
+            <p>Our vocational training programs equip youth with essential skills, enabling them to secure employment and contribute to their communities.</p>
+          </div>
+        </div>
+          
+        <div class="program-card">
+          <div class="program-img community-img"></div>
+          <div class="program-content">
+            <h3>Community Development</h3>
+            <p>We work with local communities to identify their needs and implement sustainable development projects that enhance their quality of life.</p>
+          </div> 
+        </div>
+       
+
+        <div class="program-card">
+            <div class="program-img agriculture-img"></div>
+            <div class="program-content">
+              <h3>Old Age Home</h3>
+              <p>We provide a safe and nurturing environment for the elderly, offering healthcare, companionship, and recreational activities to enhance their quality of life.</p>
+            </div>
+        </div>
+        
+           
+    </div>
+  </section>
+
+ <!-- Impact Section -->
+  <section class="impact" id="impact">
+    <div class="container">
+      <h2 class="section-title">Our Impact</h2>
+      <p class="impact-description">Over the years, Shreesurya Pushpa Foundation has made a significant difference in thousands of lives through our various programs and initiatives.</p>
+      <div class="stats-container">
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-inner">
+              <div class="stat-icon">👨‍🎓</div>
+              <div class="stat-number" data-count="500">500+</div>
+              <div class="stat-label">Children Educated</div>
+              <div class="stat-description">Providing quality education and learning resources</div>
+            </div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-inner">
+              <div class="stat-icon">🏥</div>
+              <div class="stat-number" data-count="100">100+</div>
+              <div class="stat-label">Medical Checkups</div>
+              <div class="stat-description">Free health camps and medical services</div>
+            </div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-inner">
+              <div class="stat-icon">🌳</div>
+              <div class="stat-number" data-count="5000">5000+</div>
+              <div class="stat-label">Trees Planted</div>
+              <div class="stat-description">Environmental conservation initiatives</div>
+            </div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-inner">
+              <div class="stat-icon">👩‍💼</div>
+              <div class="stat-number" data-count="250">250+</div>
+              <div class="stat-label">Women Empowered</div>
+              <div class="stat-description">Through skill development and support</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Shreesurya Pushpa Foundation</h3>
+          <p>Empowering Lives, Enriching Communities through sustainable development initiatives. Together, we can make a difference in the lives of those who need it most.</p>
+         <div class="social-icons">
+            <a href=https://www.facebook.com/ShreeSuryaPushpaFoundation?rdid=Pe29XfFrB7dWCKFy&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18vvQP7Fq1%2F#" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://instagram.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://linkedin.com/company/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" rel="noopener" class="social-icon" aria-label="YouTube">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="#programs">Our Programs</a></li>
+            <li><a href="#impact">Impact</a></li>
+           <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Our Programs</h3>
+          <ul class="footer-links">
+            <li><a href="#programs">Agriculture & Farming</a></li>
+            <li><a href="#programs">Education & Literacy</a></li>
+            <li><a href="#programs">Healthcare Initiatives</a></li>
+            <li><a href="#programs">Women Empowerment</a></li>
+            <li><a href="#programs">Skill Development</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Contact Info</h3>
+          <ul class="footer-links">
+            <li>📍 Sarju Bagicha Masanganj, Bilaspur, Chhattisgarh 495001</li>
+            <li>📞 +91 81036 12005</li>
+            <li>✉️ shreesuryapushpa@gmail.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Shreesurya Pushpa Foundation. All Rights Reserved. | Designed with 💖 for social impact</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Add Google Translate API -->
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script type="text/javascript">
+      function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+              pageLanguage: 'en',
+              includedLanguages: 'en,hi',
+              layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+              autoDisplay: false,
+          }, 'google_translate_element');
+      }
+  </script>
+  <script src = "mobile-nav.js"></script>
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js" integrity="sha512-Ixzuzfxv1//OVkTZwnSWNkBqdS/MJKLNgh0po9SOdVTOBKzFb/nY/HKPx3X2XtjXRtRjN8Nq0Jo9UFwLPA9Pug==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+</body>
+</html>

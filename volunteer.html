@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <title>Volunteer - Shreesurya Pushpa Foundation</title>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="responsive.css" as="style">
+    <link rel="preload" href="mobile-nav.css" as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="mobile-nav.css">
+    <link rel="stylesheet" href="responsive.css">
+    <style>
+        /* Center align navigation */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Add hidden translate element -->
+  <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px;"></div>
+  
+        <header>
+            <div class="top-header">
+                <div class="container">
+                    <div class="header-container">
+                        <div class="logo-section">
+                            <img src="logo.png" alt="Shreesurya Pushpa Foundation Logo" class="logo-img">
+                            <div class="logo-text">
+                                <h1>Shreesurya Pushpa Foundation</h1>
+                                <span>Empowering Communities, Transforming Lives</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-lang-card">
+                            <div class="contact-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <a href="tel:+918103612005">+91 81036 12005</a>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:shreesuryapushpa@gmail.com">shreesuryapushpa@gmail.com</a>
+                            </div>
+                            <div class="language-switcher">
+                                <button onclick="changeLanguage('en')" class="lang-btn active" data-lang="en">English</button>
+                                <button onclick="changeLanguage('hi')" class="lang-btn" data-lang="hi">हिंदी</button>
+                            </div>
+                            <div class="social-header-icons">
+                                <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" class="header-social-icon">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                <a href="https://wa.me/919406130259" target="_blank" class="header-social-icon">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="https://www.facebook.com/ShreeSuryaPushpaFoundation" target="_blank" class="header-social-icon">
+                                    <i class="fab fa-facebook" "></i>
+                                </a>
+                            </div>
+                            <div id="google_translate_element" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <nav class="main-nav">
+            <div class="navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">Mission</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="index.html#approval-letters">Approvals</a></li>
+                    <li><a href="index.html#programs">Programs</a></li>
+                    <li><a href="index.html#impact">Impact</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="https://shreesurya.pushpanews.co.in/" target="_blank">News</a></li>
+                    <li><a href="books.html">Books</a></li> 
+                    <li><a href="book_distribution.html">Literacy</a></li>
+                    <li><a href="volunteer.html" class="active">Volunteer</a></li>
+                    <li><a href="donate.html" class="donate-btn">Donate</a></li>
+                </ul>
+                <!-- Add Hamburger Menu Button -->
+                <button class="hamburger-menu" aria-label="Toggle Menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <nav class="mobile-nav-menu">
+            <ul>
+                <li><a href="index.html#home" class="active"><i class="fas fa-house-user"  style="color:#3366CC  ; font-size: 20px;gap: 10px;"></i> Home</span></a></li>
+            <li><a href="index.html#about"><i class="fas fa-compass" style="color:#3366CC  ; font-size: 20px;"></i>  Mission</span></a></li>
+            <li><a href="gallery.html"><i class="fas fa-photo-film" style="color:#3366CC  ; font-size: 20px;"></i>  Gallery</span></a></li>
+            <li><a href="events.html"><i class="fas fa-calendar-alt" style="color:#3366CC  ; font-size: 20px;"></i>  Events</span></a></li>
+            <li><a href="index.html#approval-letters"><i class="fas fa-circle-check" style="color:#3366CC  ; font-size: 20px;"></i><span> Approval</span></a></li>
+            <li><a href="index.html#programs"><i class="fas fa-laptop-code" style="color:#3366CC  ; font-size: 20px;"></i> <span> Programs</span></a></li>
+            <li><a href="index.html#impact"><i class="fas fa-bolt" style="color:#3366CC  ; font-size: 20px;"></i><span> Impact</span></a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope-open-text" style="color: #3366CC  ; font-size: 20px;"></i><span>  Contact</span></a></li>
+            <li><a href="https://shreesurya.pushpanews.co.in/" target="_blank"><i class="fas fa-broadcast-tower" style="color:#3366CC  ; font-size: 20px;"></i><span>  News</span></a></li>
+            <li><a href="books.html"><i class="fas fa-book" style="color:#3366CC  ; font-size: 20px;"></i><span> Books</span></a></li>
+            <li><a href="book_distribution.html"><i class="fas fa-spell-check" style="color:#3366CC ; font-size: 20px;"></i><span> Literacy</a></span></li>
+            <li><a href="volunteer.html"><i class="fas fa-hand-holding-heart" style="color:#3366CC  ; font-size: 20px;"></i><span>  Volunteer</span></a></li>
+            <li><a href="donate.html" class="donate-btn" >Donate</a></li>
+            </ul>
+        </nav>
+        <div class="nav-backdrop"></div>
+    </div>
+
+    <section class="volunteer-section">
+        <div class="container">
+            <h2 class="section-title"> Support Our Cause</h2>
+            <p class="section-desc"> Make a difference in your community by volunteering with us</p>
+
+            <div class="donation-container">
+                <div class="donation-left">
+                    <div class="info-panel">
+                        <h3> Volunteer Opportunities</h3>
+                        <div class="info-box">
+                            <div class="info-item">
+                                <i class="fas fa-hands-helping"></i>
+                                <div>
+                                    <strong>Available Roles:</strong>
+                                    <ul>
+                                        <li>Community Outreach</li>
+                                        <li>Education Support</li>
+                                        <li>Healthcare Assistance</li>
+                                        <li>Event Organization</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <strong> Time Commitment:</strong>
+                                    <p> Flexible hours available<br>Weekend opportunities</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <div>
+                                    <strong> Location:</strong>
+                                    <p>Sarju Bagicha Masanganj<br>Bilaspur, Chhattisgarh 495001</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contribution-guidelines">
+                            <h4><i class="fas fa-clipboard-list"></i> Volunteer Requirements:</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Must be 18 years or older</li>
+                                <li><i class="fas fa-check"></i> Valid ID proof required</li>
+                                <li><i class="fas fa-check"></i> Commitment of at least 4 hours per week</li>
+                                <li><i class="fas fa-check"></i> Attend orientation session</li>
+                            </ul>
+                        </div>
+
+                        <div class="benefits-info">
+                            <h4><i class="fas fa-gift"></i>  Benefits</h4>
+                            <p>Gain valuable experience, networking opportunities, and the satisfaction of making a real difference in your community.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="donation-right">
+                    <div class="form-panel">
+                        <h3><i class="fas fa-user-plus"></i>  Volunteer Registration</h3><br>
+                        <form id="volunteerForm" action="https://script.google.com/macros/s/AKfycbzzQ4VBJIoM7A4lgvB84RGQIP3w_w8Rey0ktGaeTvnlRm4_poCrI8Ncrb_bCmzg6BlD/exec" method="POST">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="area"><i class="fas fa-briefcase"></i> Area of Interest</label>
+                                    <select id="area" name="area" required>
+                                        <option value="">Select Area</option>
+                                        <option value="community">Community Outreach</option>
+                                        <option value="education">Education Support</option>
+                                        <option value="healthcare">Healthcare Assistance</option>
+                                        <option value="events">Event Organization</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="availability"><i class="fas fa-calendar"></i> Availability</label>
+                                <select id="availability" name="availability" required>
+                                    <option value="">Select Availability</option>
+                                    <option value="weekdays">Weekdays</option>
+                                    <option value="weekends">Weekends</option>
+                                    <option value="both">Both</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message"><i class="fas fa-comment"></i> Why do you want to volunteer?</label>
+                                <textarea id="message" name="message" rows="4" required></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i> Submit Application
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Shreesurya Pushpa Foundation</h3>
+                    <p>Empowering Lives, Enriching Communities through sustainable development initiatives. Together, we can make a difference in the lives of those who need it most.</p>
+                    <div class="social-icons">
+                    <a href=https://www.facebook.com/ShreeSuryaPushpaFoundation?rdid=Pe29XfFrB7dWCKFy&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18vvQP7Fq1%2F#" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                      </a>
+                      <a href="https://twitter.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a href="https://instagram.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                      </a>
+                      <a href="https://linkedin.com/company/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                      </a>
+                      <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" rel="noopener" class="social-icon" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                      </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="index.html#programs">Our Programs</a></li>
+                        <li><a href="index.html#impact">Impact</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Our Programs</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#programs">Agriculture & Farming</a></li>
+                        <li><a href="index.html#programs">Education & Literacy</a></li>
+                        <li><a href="index.html#programs">Healthcare Initiatives</a></li>
+                        <li><a href="index.html#programs">Environmental Projects</a></li>
+                        <li><a href="index.html#programs">Women Empowerment</a></li>
+                        <li><a href="index.html#programs">Skill Development</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li>📍 Sarju Bagicha Masanganj, Bilaspur, Chhattisgarh 495001</li>
+                        <li>📞 +91 81036 12005</li>
+                        <li>✉️ shreesuryapushpa@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Shreesurya Pushpa Foundation. All Rights Reserved. | Designed with 💖 for social impact</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Add Google Translate API -->
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script type="text/javascript">
+      function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+              pageLanguage: 'en',
+              includedLanguages: 'en,hi',
+              layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+              autoDisplay: false,
+              multilanguagePage: true
+          }, 'google_translate_element');
+      }
+  </script>
+    <script src="mobile-nav.js"></script>
+    <script src="script.js"></script>  
+</body>
+</html>

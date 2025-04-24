@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    <title>Events - Shreesurya Pushpa Foundation</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="navigation.css" as="style">
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="preload" href="mobile-nav.css" as="style">
+    <link rel="stylesheet" href="mobile-nav.css">
+    <link rel="stylesheet" href="events.css">
+    <link rel="preload" href="responsive.css" as="style">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+    <!-- Add hidden translate element -->
+    <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px;"></div>
+  
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <nav class="mobile-nav-menu">
+            <ul>
+                <li><a href="index.html#home" class="active"><i class="fas fa-house-user" style="color:#3366CC; font-size: 20px;gap: 10px;"></i> Home</span></a></li>
+                <li><a href="index.html#about"><i class="fas fa-compass" style="color:#3366CC; font-size: 20px;"></i> Mission</span></a></li>
+                <li><a href="gallery.html"><i class="fas fa-photo-film" style="color:#3366CC; font-size: 20px;"></i> Gallery</span></a></li>
+                <li><a href="events.html"><i class="fas fa-calendar-alt" style="color:#3366CC; font-size: 20px;"></i> Events</span></a></li>
+                <li><a href="index.html#approval-letters"><i class="fas fa-circle-check" style="color:#3366CC; font-size: 20px;"></i><span> Approval</span></a></li>
+                <li><a href="index.html#programs"><i class="fas fa-laptop-code" style="color:#3366CC; font-size: 20px;"></i><span> Programs</span></a></li>
+                <li><a href="index.html#impact"><i class="fas fa-bolt" style="color:#3366CC; font-size: 20px;"></i><span> Impact</span></a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope-open-text" style="color:#3366CC; font-size: 20px;"></i><span> Contact</span></a></li>
+                <li><a href="https://shreesuryapushpanews.co.in/" target="_blank"><i class="fas fa-broadcast-tower" style="color:#3366CC; font-size: 20px;"></i><span> News</span></a></li>
+                <li><a href="books.html"><i class="fas fa-book" style="color:#3366CC; font-size: 20px;"></i><span> Books</span></a></li>
+                <li><a href="book_distribution.html"><i class="fas fa-spell-check" style="color:#3366CC; font-size: 20px;"></i><span> Literacy</span></a></li>
+                <li><a href="volunteer.html"><i class="fas fa-hand-holding-heart" style="color:#3366CC; font-size: 20px;"></i><span> Volunteer</span></a></li>
+                <li><a href="donate.html" class="donate-btn">Donate</a></li>
+            </ul>
+        </nav>
+        <div class="nav-backdrop"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="top-header">
+            <div class="container">
+                <div class="header-container">
+                    <div class="logo-section">
+                        <img src="logo.png" alt="Shreesurya Pushpa Foundation Logo" class="logo-img">
+                        <div class="logo-text">
+                            <h1>Shreesurya Pushpa Foundation</h1>
+                            <span>Empowering Communities, Transforming Lives</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-lang-card">
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <a href="tel:+918103612005">+91 81036 12005</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:shreesuryapushpa@gmail.com">shreesuryapushpa@gmail.com</a>
+                        </div>
+                        <div class="language-switcher">
+                            <button onclick="changeLanguage('en')" class="lang-btn active" data-lang="en">English</button>
+                            <button onclick="changeLanguage('hi')" class="lang-btn" data-lang="hi">हिंदी</button>
+                        </div>
+                        <div class="social-header-icons">
+                            <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" class="header-social-icon">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="https://wa.me/919406130259" target="_blank" class="header-social-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="https://www.facebook.com/ShreeSuryaPushpaFoundation" target="_blank" class="header-social-icon">
+                                <i class="fab fa-facebook" "></i>
+                            </a>
+                        </div>
+                        <div id="google_translate_element" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="main-nav" role="navigation" aria-label="Main navigation">
+            <div class="navbar">
+                <button class="hamburger-menu" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">Mission</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="index.html#approval-letters">Approval</a></li>
+                    <li><a href="index.html#programs">Programs</a></li>
+                    <li><a href="index.html#impact">Impact</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="https://shreesuryaPushpanews.co.in/" target="_blank">News</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="book_distribution.html">Literacy</a></li>
+                    <li><a href="volunteer.html">Volunteer</a></li>
+                    <li><a href="donate.html" class="donate-btn">Donate</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="events-timeline" style="margin-top: 120px;">
+        <div class="container">
+            <h2 class="section-title">Our Impact Events</h2>
+            <p class="section-desc">Building a better future through community engagement</p>
+            
+            <div class="timeline">
+                <!-- Blood Donation Camp -->
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="event-image">
+                            <img src="Images/events/blood.jpeg" alt="Blood Donation Camp">
+                        </div>
+                        <div class="event-info">
+                            <h3>Blood Donation Camp</h3>
+                            <p>Organized a successful blood donation drive supporting local healthcare</p>
+                            <div class="event-stats">
+                                <span><i class="fas fa-users"></i> 3+ Donors</span>
+                                <span><i class="fas fa-location-dot"></i> City Hospital</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Women Empowerment Workshop -->
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="event-image">
+                            <img src="Images/women.jpeg" alt="Women Empowerment Workshop">
+                        </div>
+                        <div class="event-info">
+                            <h3>Women Empowerment Workshop</h3>
+                            <p>Skills development and entrepreneurship training for women</p>
+                            <div class="event-stats">
+                                <span><i class="fas fa-users"></i> 25 Participants</span>
+                                <span><i class="fas fa-clock"></i> 1 Days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fitness Through Cycling -->
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="event-image">
+                            <img src="Images/events/cycling.jpeg" alt="Fitness Through Cycling">
+                        </div>
+                        <div class="event-info">
+                            <h3>Fitness Through Cycling</h3>
+                            <p>Community cycling event promoting health and environmental awareness</p>
+                            <div class="event-stats">
+                                <span><i class="fas fa-bicycle"></i> 1 Cyclists</span>
+                                <span><i class="fas fa-route"></i> 10 KM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Traffic Management -->
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="event-image">
+                            <img src="Images/events/traffic.jpeg" alt="Traffic Management Awareness">
+                        </div>
+                        <div class="event-info">
+                            <h3>Traffic Safety Campaign</h3>
+                            <p>Road safety awareness program with local police department</p>
+                            <div class="event-stats">
+                                <span><i class="fas fa-hand-point-up"></i> 50+ Volunteers</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Bilaspur</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Old Age Home Visit -->
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="event-image">
+                            <img src="Images/events/oldage.jpeg" alt="Old Age Home Visit">
+                        </div>
+                        <div class="event-info">
+                            <h3>Elderly Care Program</h3>
+                            <p>Supporting and spending quality time with elderly residents</p>
+                            <div class="event-stats">
+                                <span><i class="fas fa-heart"></i> 50+ Seniors</span>
+                                <span><i class="fas fa-hands-helping"></i> Care Home</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tree Plantation -->
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="event-image">
+                            <img src="Images/events/tree-plantation.jpeg" alt="Tree Plantation Drive">
+                        </div>
+                        <div class="event-info">
+                            <h3>Green Earth Initiative</h3>
+                            <p>Community tree plantation drive for a greener future</p>
+                            <div class="event-stats">
+                                <span><i class="fas fa-tree"></i> 5000+ Trees</span>
+                                <span><i class="fas fa-map-marked-alt"></i>  Bilaspur</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="event-image">
+                            <img src="Images/events/water.jpeg" alt="water Drive">
+                        </div>
+                        <div class="event-info">
+                            <h3>Water  Distribution</h3>
+                            <p>Distribution of water bottles</p>
+                            <div class="event-stats">
+                                <span><i class="fas fa-water"></i> 500+ Bottles</span>
+                                <span><i class="fas fa-map-marked-alt"></i> Bilaspur</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="event-image">
+                            <img src="Images/events/old-age.jpeg" alt="old age food distirbution Camp">
+                        </div>
+                        <div class="event-info">
+                            <h3>Food Distribution Camp</h3>
+                            <p>Distribution of food to the needy</p>
+                            <div class="event-stats">
+                                <span><i class="fas fa-utensils"></i> 100+ Meals</span>
+                                <span><i class="fas fa-map-marked-alt"></i> Bilaspur</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="event-image">
+                            <img src="Images/events/clothes.jpeg" alt="Clothes Distribution Camp">
+                        </div>
+                        <div class="event-info">
+                            <h3>Clothes Distribution Camp</h3>
+                            <p>Distribution of clothes to the needy</p>
+                            <div class="event-stats">
+                                <span><i class="fas fa-tshirt"></i> 100+ Clothes</span>
+                                <span><i class="fas fa-map-marked-alt"></i> Bilaspur</span>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="event-image">
+                            <img src="Images/events/pot.jpeg" alt="drinking house">
+                        </div>
+                        <div class="event-info">
+                            <h3>Drinking Water House</h3>
+                            <p>Water house for people</p>
+                            <div class="event-stats">
+                                <span><i class="fas fa-water"></i> 3+ Clay Pots</span>
+                                <span><i class="fas fa-map-marked-alt"></i> Bilaspur</span>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Shreesurya Pushpa Foundation</h3>
+                    <p>Empowering Lives, Enriching Communities through sustainable development initiatives. Together, we can make a difference in the lives of those who need it most.</p>
+                    <div class="social-icons">
+                    <a href=https://www.facebook.com/ShreeSuryaPushpaFoundation?rdid=Pe29XfFrB7dWCKFy&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18vvQP7Fq1%2F#" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                      </a>
+                      <a href="https://twitter.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a href="https://instagram.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                      </a>
+                      <a href="https://linkedin.com/company/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                      </a>
+                      <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" rel="noopener" class="social-icon" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                      </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="index.html#programs">Our Programs</a></li>
+                        <li><a href="index.html#impact">Impact</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Our Programs</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#programs">Agriculture & Farming</a></li>
+                        <li><a href="index.html#programs">Education & Literacy</a></li>
+                        <li><a href="index.html#programs">Healthcare Initiatives</a></li>
+                        <li><a href="index.html#programs">Environmental Projects</a></li>
+                        <li><a href="index.html#programs">Women Empowerment</a></li>
+                        <li><a href="index.html#programs">Skill Development</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li>📍 Sarju Bagicha Masanganj, Bilaspur, Chhattisgarh 495001</li>
+                        <li>📞 +91 81036 12005</li>
+                        <li>✉️ shreesuryapushpa@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Shreesurya Pushpa Foundation. All Rights Reserved. | Designed with 💖 for social impact</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi',
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+                autoDisplay: false,
+                multilanguagePage: true
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="mobile-nav.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

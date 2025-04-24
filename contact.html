@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=5.0, minimum-scale=1.0">
+  <meta name="theme-color" content="#FFA500">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="icon" type="image/x-icon" href="logo.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Contact -Shreesurya Pushpa Foundation</title>
+  <!-- Preload critical assets -->
+  <link rel="preload" href="logo.png" as="image">
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="preload" href="responsive.css" as="style">
+  <link rel="preload" href="mobile-nav.css" as="style">
+  <!-- Defer non-critical CSS -->
+  <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="mobile-nav.css">
+  <link rel="stylesheet" href="responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
+  <style>
+    /* Fixed Header and Navigation Styles */
+    :root {
+        --header-height: 90px;
+        --nav-height: 70px;
+    }
+
+    .top-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(to right, #fff 60%, #fdf2e3);
+        z-index: 1002;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 1001;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .contact {
+        margin-top: calc(var(--header-height) + var(--nav-height) + 20px);
+        position: relative;
+        z-index: 1;
+    }
+
+    .contact-container {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .contact-info {
+        flex: 1;
+        background: #f8f9fa;
+        padding: 2rem;
+        overflow-wrap: anywhere;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .contact-form {
+        flex: 2;
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.0rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 8px;
+        text-overflow: ellipsis;
+        white-space: wrap;
+        overflow: hidden;
+    }
+    
+    .info-item i {
+        font-size: 1.5rem;
+        color: #FFA500;
+        margin-right: 1rem;
+        margin-top: 0.2rem;
+    }
+    
+    .map-container {
+        margin-top: 2rem;
+        border-radius: 8px;
+        overflow: hidden;
+        height: 300px;
+    }
+    
+    .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    
+    @media (max-width: 768px) {
+        .contact-container {
+            flex-direction: column;
+        }
+    }
+
+    /* Center align navigation */
+    .nav-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 2rem;
+    }
+
+    .contact-item{
+        display:flex;
+        overflow:visible;
+        justify-content: center;
+        text-overflow: ellipsis
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            justify-content: flex-start;
+        }
+    }
+
+    .emergency-contact {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        background: var(--gradient);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        z-index: 1000;
+        font-weight: 500;
+    }
+
+    .emergency-contact i {
+        font-size: 20px;
+        animation: shake 1.5s ease infinite;
+    }
+
+    .emergency-contact span {
+        font-size: 14px;
+        display: inline-block;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: rotate(0deg); }
+        20%, 60% { transform: rotate(-10deg); }
+        40%, 80% { transform: rotate(10deg); }
+    }
+
+    @media (max-width: 768px) {
+        .emergency-contact {
+            bottom: 15px;
+            right: 15px;
+            padding: 10px 15px;
+        }
+    }
+  </style>
+</head>
+<body>
+  <!-- Add hidden translate element -->
+  <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px;"></div>
+  
+  <div class="mobile-nav">
+    <div class="mobile-nav-header">
+        <button class="mobile-menu-btn" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <nav class="mobile-nav-menu">
+        <ul>
+            <li><a href="index.html#home" class="active"><i class="fas fa-house-user"  style="color:#3366CC  ; font-size: 20px;gap: 10px;"></i> Home</span></a></li>
+            <li><a href="index.html#about"><i class="fas fa-compass" style="color:#3366CC  ; font-size: 20px;"></i>  Mission</span></a></li>
+            <li><a href="gallery.html"><i class="fas fa-photo-film" style="color:#3366CC  ; font-size: 20px;"></i>  Gallery</span></a></li>
+            <li><a href="events.html"><i class="fas fa-calendar-alt" style="color:#3366CC; font-size: 20px;"></i> Events</span></a></li>
+            <li><a href="index.html#approval-letters"><i class="fas fa-circle-check" style="color:#3366CC  ; font-size: 20px;"></i><span> Approval</span></a></li>
+            <li><a href="index.html#programs"><i class="fas fa-laptop-code" style="color:#3366CC  ; font-size: 20px;"></i> <span> Programs</span></a></li>
+            <li><a href="index.html#impact"><i class="fas fa-bolt" style="color:#3366CC  ; font-size: 20px;"></i><span> Impact</span></a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope-open-text" style="color: #3366CC  ; font-size: 20px;"></i><span>  Contact</span></a></li>
+            <li><a href="https://shreesuryapushpanews.co.in/" target="_blank"><i class="fas fa-broadcast-tower" style="color:#3366CC  ; font-size: 20px;" ></i><span>  News</span></a></li>
+            <li><a href="books.html"><i class="fas fa-book" style="color:#3366CC  ; font-size: 20px;"></i><span> Books</span></a></li>
+            <li><a href="book_distribution.html"><i class="fas fa-spell-check" style="color:#3366CC ; font-size: 20px;"></i><span> Literacy</a></span></li>
+            <li><a href="volunteer.html"><i class="fas fa-hand-holding-heart" style="color:#3366CC  ; font-size: 20px;"></i><span>  Volunteer</span></a></li>
+            <li><a href="donate.html" class="donate-btn" >Donate</a></li>
+        </ul>
+    </nav>
+    <div class="nav-backdrop"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="top-header">
+        <div class="container">
+            <div class="header-container">
+                <div class="logo-section">
+                    <img src="logo.png" alt="Shreesurya Pushpa Foundation Logo" class="logo-img">
+                    <div class="logo-text">
+                        <h1>Shreesurya Pushpa Foundation</h1>
+                        <span>Empowering Communities, Transforming Lives</span>
+                    </div>
+                </div>
+                
+                <div class="contact-lang-card">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+918103612005">+91 81036 12005</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:shreesuryapushpa@gmail.com">shreesuryapushpa@gmail.com</a>
+                    </div>
+                    <div class="language-switcher">
+                        <button onclick="changeLanguage('en')" class="lang-btn active" data-lang="en">English</button>
+                        <button onclick="changeLanguage('hi')" class="lang-btn" data-lang="hi">हिंदी</button>
+                    </div>
+                    <div class="social-header-icons">
+                        <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" class="header-social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://wa.me/919406130259" target="_blank" class="header-social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.facebook.com/ShreeSuryaPushpaFoundation" target="_blank" class="header-social-icon">
+                            <i class="fab fa-facebook" "></i>
+                        </a>
+                    </div>
+                    <div id="google_translate_element" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="main-nav" role="navigation" aria-label="Main navigation">
+      <div class="navbar">
+        <button class="hamburger-menu" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">Mission</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="index.html#approval-letters">Approval</a></li>
+          <li><a href="index.html#programs">Programs</a></li>
+          <li><a href="index.html#impact">Impact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://shreesuryapushpanews.co.in/" target="_blank">News</a></li>
+          <li><a href="books.html">Books</a></li>
+          <li><a href="book_distribution.html">Literacy</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
+          <li><a href="donate.html" class="donate-btn">Donate</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="nav-overlay"></div>
+    <a href="tel:+918103612005" class="emergency-contact">
+        <i class="fas fa-phone-alt fa-shake"></i>
+        <span>Emergency Helpline</span>
+    </a>
+    
+<!-- Contact Section -->
+<section class="contact" id="contact">
+    <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <p>shreesuryapushpa@gmail.com</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <p>+91 81036 12005</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <p>34HR+V97 Shreesurya Pushpa Foundation</p>
+                        <p>Sarju Bagicha Masanganj</p>
+                        <p>Bilaspur, Chhattisgarh 495001</p>
+                    </div>
+                </div>
+                <!-- Map moved inside contact-info -->
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3696.8950927620145!2d82.13833723447655!3d22.079673985425823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a280b19f6da7eff%3A0x418ed607836d4414!2sShree%20Surya%20Pushpa%20Foundation%20(%20NGO)!5e0!3m2!1sen!2sin!4v1681234567890!5m2!1sen!2sin"
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form id="contactForm" action="https://script.google.com/macros/s/AKfycbxQ1MvbwrD5nsBFkFEdMt6ax6buSAi7EiRyZmcF22Oa34jGLDNdRY4JhMb35VMDtB7K/exec" method="POST">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Enter subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </div>
+                    <div id="formStatus" class="form-status"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+ <!-- Footer -->
+ <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Shreesurya Pushpa Foundation</h3>
+          <p>Empowering Lives, Enriching Communities through sustainable development initiatives. Together, we can make a difference in the lives of those who need it most.</p>
+          <div class="social-icons">
+          <a href=https://www.facebook.com/ShreeSuryaPushpaFoundation?rdid=Pe29XfFrB7dWCKFy&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18vvQP7Fq1%2F#" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://twitter.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://instagram.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://linkedin.com/company/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" rel="noopener" class="social-icon" aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="index.html#programs">Our Programs</a></li>
+            <li><a href="index.html#impact">Impact</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Our Programs</h3>
+          <ul class="footer-links">
+            <li><a href="index.html#programs">Agriculture & Farming</a></li>
+            <li><a href="index.html#programs">Education & Literacy</a></li>
+            <li><a href="index.html#programs">Healthcare Initiatives</a></li>
+            <li><a href="index.html#programs">Environmental Projects</a></li>
+            <li><a href="index.html#programs">Women Empowerment</a></li>
+            <li><a href="index.html#programs">Skill Development</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Contact Info</h3>
+          <ul class="footer-links">
+            <li>📍 Sarju Bagicha Masanganj, Bilaspur, Chhattisgarh 495001</li>
+            <li>📞 +91 81036 12005</li>
+            <li>✉️ shreesuryapushpa@gmail.com</li>
+          </ul>
+        </div>
+          
+        
+        
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 Shreesurya Pushpa Foundation. All Rights Reserved. | Designed with 💖 for social impact</p>
+      </div>
+    </div>
+  </footer>
+  <!-- Add Google Translate API -->
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script type="text/javascript">
+      function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+              pageLanguage: 'en',
+              includedLanguages: 'en,hi',
+              layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+              autoDisplay: false,
+              multilanguagePage: true
+          }, 'google_translate_element');
+      }
+  </script>
+  <script src="mobile-nav.js" defer></script>
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js" integrity="sha512-Ixzuzfxv1//OVkTZwnSWNkBqdS/MJKLNgh0po9SOdVTOBKzFb/nY/HKPx3X2XtjXRtRjN8Nq0Jo9UFwLPA9Pug==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+</body>
+</html>

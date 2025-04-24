@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books - Shreesurya Pushpa Foundation</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="navigation.css" as="style">
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="preload" href="mobile-nav.css" as="style">
+    <link rel="stylesheet" href ="mobile-nav.css">
+    <link rel="preload" href="responsive.css" as="style">
+    <link rel="stylesheet" href="responsive.css">
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script> 
+   <style>
+        .book-section {
+            padding: 4rem 0;
+            background: #fff;
+        }
+
+        .book-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .book-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+            min-height: 580px;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .book-cover {
+            height: 320px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .book-cover img {
+            max-height: 100%;
+            max-width: 75%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .book-card:hover .book-cover img {
+            transform: scale(1.05);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .book-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .book-meta-item {
+            text-align: center;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .book-meta-item i {
+            color:#3366CC;
+            margin-bottom: 0.25rem;
+        }
+
+        .price-tag {
+            margin: 1rem 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .read-more-btn {
+            background: #3366CC;
+            color:#fff ;
+            border: 1px solid #ddd;
+        }
+
+        .amazon-btn {
+            background:#FFA500;
+            color: #fff;
+            border: none;
+        }
+
+        .read-more-btn:hover {
+            background: #0056b3;
+        }
+
+        .amazon-btn:hover {
+            background: #e68a00;
+        }
+
+        .book-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .book-tag {
+            padding: 0.3rem 0.6rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: navy;
+        }
+
+        .year-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            background:#66CC66;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .modal-title {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            padding-right: 2rem;
+        }
+
+        .modal-text {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+  <!-- Add hidden translate element -->
+  <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px;"></div>
+  
+    <!-- Header Section -->
+    <!-- Header -->
+  <header>
+    <div class="top-header">
+        <div class="container">
+            <div class="header-container">
+                <div class="logo-section">
+                    <img src="logo.png" alt="Shreesurya Pushpa Foundation Logo" class="logo-img">
+                    <div class="logo-text">
+                        <h1>Shreesurya Pushpa Foundation</h1>
+                        <span>Empowering Communities, Transforming Lives</span>
+                    </div>
+                </div>
+                
+                <div class="contact-lang-card">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+918103612005">+91 81036 12005</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:shreesurya@gmail.com">shreesurya@gmail.com</a>
+                    </div>
+                    <div class="language-switcher">
+                        <button onclick="changeLanguage('en')" class="lang-btn active" data-lang="en">English</button>
+                        <button onclick="changeLanguage('hi')" class="lang-btn" data-lang="hi">हिंदी</button>
+                    </div>
+                    <div class="social-header-icons">
+                        <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" class="header-social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://wa.me/919406130259" target="_blank" class="header-social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.facebook.com/ShreeSuryaPushpaFoundation" target="_blank" class="header-social-icon">
+                            <i class="fab fa-facebook" "></i>
+                        </a>
+                    </div>
+                    <div id="google_translate_element" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="main-nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-container">
+        <button class="hamburger-menu" aria-label="Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">Mission</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="index.html#approval-letters">Approval</a></li>
+          <li><a href="index.html#programs">Programs</a></li>
+          <li><a href="index.html#impact">Impact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://shreesuryapushpanews.co.in/" target="_blank">News</a></li>
+          <li><a href="books.html">Books</a></li>
+          <li><a href="book_distribution.html">Literacy</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
+          <li><a href="donate.html" class="donate-btn">Donate</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="nav-overlay"></div>
+    <a href="tel:+918103612005" class="emergency-contact">
+        <i class="fas fa-phone-alt fa-shake"></i>
+        <span>Emergency Helpline</span>
+    </a>
+  </header>
+
+<!-- Direct Purchase Section -->
+<section class="direct-purchase">
+    <div class="container">
+        <div class="purchase-info">
+            <div class="purchase-header">
+                <br>
+                <br>
+                <h2>Purchase Books Directly from Shreesurya Pushpa Foundation</h2>
+                <p>Support our mission by purchasing books directly from us. Special discounts available for bulk orders.</p>
+            </div>
+            <div class="purchase-options">
+                <div class="purchase-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Direct Purchase</h3>
+                    <p>Visit our office to purchase books directly</p>
+                    <a href="https://www.google.com/maps/place/Shree+Surya+Pushpa+Foundation+(+NGO)/@22.079655,82.140915,16z/data=!4m6!3m5!1s0x3a280b19f6da7eff:0x418ed607836d4414!8m2!3d22.0796545!4d82.1409152!16s%2Fg%2F11smnz54lk?hl=en&entry=ttu&g_ep=EgoyMDI1MDQyMS4wIKXMDSoASAFQAw%3D%3D" class="location-btn">Our Location</a>
+                </div>
+                <div class="purchase-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Order by Phone</h3>
+                    <p>Call us to place your order</p>
+                    <a href="tel:+918103612005" class="call-btn">Call Now</a>
+                </div>
+                <div class="purchase-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Bulk Orders</h3>
+                    <p>Special rates for educational institutions</p>
+                    <a href="mailto:shreesuryapushpa@gmail.com" class="email-btn">Email Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add styles for the new section -->
+<style>
+    .direct-purchase {
+        background: linear-gradient(to right, #fff, #fdf2e3);
+        padding: 40px 0;
+        margin-top: calc(var(--header-height) + var(--nav-height));
+    }
+
+    .purchase-info {
+        text-align: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .purchase-header {
+        margin-bottom: 40px;
+    }
+
+    .purchase-header h2 {
+        color: #333;
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .purchase-header p {
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .purchase-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        padding: 20px;
+    }
+
+    .purchase-card {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .purchase-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .purchase-card i {
+        font-size: 2.5rem;
+        color: #FFA500;
+        margin-bottom: 20px;
+    }
+
+    .purchase-card h3 {
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .purchase-card p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .purchase-card a {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .location-btn {
+        background: var(--gradient);
+        color: white;
+    }
+
+    .call-btn {
+        background: #25D366;
+        color: white;
+    }
+
+    .email-btn {
+        background: #3366CC;
+        color: white;
+    }
+
+    .purchase-card a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 768px) {
+        .direct-purchase {
+            padding: 20px 0;
+        }
+
+        .purchase-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .purchase-options {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 10px;
+        }
+    }
+</style>
+
+  <div class="mobile-nav">
+    <div class="mobile-nav-header">
+        <button class="mobile-menu-btn" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <nav class="mobile-nav-menu">
+        <ul>
+          <li><a href="index.html#home" class="active">
+            <i class="fas fa-house-user" style="color:#3366CC; font-size: 20px;"></i> Home</a></li>
+          <li><a href="index.html#about">
+            <i class="fas fa-compass" style="color:#3366CC; font-size: 20px;"></i> Mission</a></li>
+          <li><a href="gallery.html">
+            <i class="fas fa-photo-film" style="color:#3366CC; font-size: 20px;"></i> Gallery</a></li>
+          <li><a href="events.html">
+            <i class="fas fa-calendar-alt" style="color:#3366CC; font-size: 20px;"></i> Events</a></li>
+          <li><a href="index.html#approval-letters">
+            <i class="fas fa-circle-check" style="color:#3366CC; font-size: 20px;"></i> Approval</a></li>
+          <li><a href="index.html#programs">
+            <i class="fas fa-laptop-code" style="color:#3366CC; font-size: 20px;"></i> Programs</a></li>
+          <li><a href="index.html#impact">
+            <i class="fas fa-bolt" style="color:#3366CC; font-size: 20px;"></i> Impact</a></li>
+          <li><a href="contact.html">
+            <i class="fas fa-envelope-open-text" style="color:#3366CC; font-size: 20px;"></i> Contact</a></li>
+          <li><a href="https://shreesuryapushpanews.co.in/" target="_blank">
+            <i class="fas fa-broadcast-tower" style="color:#3366CC; font-size: 20px;" ></i> News</a></li>
+          <li><a href="books.html">
+            <i class="fas fa-book" style="color:#3366CC; font-size: 20px;"></i> Books</a></li>
+          <li><a href="book_distribution.html">
+            <i class="fas fa-spell-check" style="color:#3366CC; font-size: 20px;"></i> Literacy</a></li>
+          <li><a href="volunteer.html">
+            <i class="fas fa-hand-holding-heart" style="color:#3366CC; font-size: 20px;"></i> Volunteer</a></li>
+          <li><a href="donate.html" class="donate-btn">Donate</a></li>
+        </ul>
+    </nav>
+    <div class="nav-backdrop"></div>
+  </div>
+
+    <!-- Books Section -->
+    <section class="book-section">
+        <div class="container">
+            <h2 class="text-center section-title mb-4">Our Publications</h2>
+            <div class="book-container">
+                <!-- Book 1 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag recent">2024</span>
+                        <img src="book/mui.png" alt="मुई मरजानी (उपन्यास)">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">मुई मरजानी (उपन्यास)</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                 December 2024
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹230</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i>  Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 200 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A compelling narrative exploring human relationships and social dynamics, focused on the lives of the Kinnar community.</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i>
+                                Read More
+                            </a>
+                            <a href="https://www.amazon.in/Mui-Marjani-Novel-Keshav-Shukla/dp/B0DPQP6R85" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i>
+                                Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 2 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag recent">2023</span>
+                        <img src="book/saj.png" alt="साज">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">सज रही गली मेरी माँ</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                November 2023
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹180</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 138 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A beautiful collection of poetry that resonates with the rhythm of life</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i>
+                                Read More
+                            </a>
+                            <a href="https://www.amazon.in/Saj-Rahi-Gali-Meri-Maa/dp/B0CP5F3TPX/ref=sr_1_4?crid=3V60PH8IEJXNP&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A_qlTVV7u2XNlUWU8CJfMP7epAuJYYzTuUag3myheNso0FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.8Zc0wxhvvNCPCWl4EKZsYQNQ5o7K1exnpOqjB907TWY&dib_tag=se&keywords=keshav+shukla&qid=1745432390&sprefix=keshav+shukl%2Caps%2C214&sr=8-4" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i>
+                                Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 3 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag recent">2024</span>
+                        <img src="book/bhaavana.png" alt="भावना">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">भावना</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                July 2024
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹120</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 83 pages
+                            </span>
+                        </div>
+                        <p class="card-text">An emotional journey through words that touches the heart</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i>
+                                Read More
+                            </a>
+                            <a href="https://www.amazon.in/Bhavna-Muk-Badhir-Kendrit-Keshav-Shukla/dp/B0DB8QTJLL/ref=sr_1_6?crid=3V60PH8IEJXNP&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A_qlTVV7u2XNlUWU8CJfMP7epAuJYYzTuUag3myheNso0FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.8Zc0wxhvvNCPCWl4EKZsYQNQ5o7K1exnpOqjB907TWY&dib_tag=se&keywords=keshav+shukla&qid=1745432390&sprefix=keshav+shukl%2Caps%2C214&sr=8-6" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i>
+                                Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Book 4 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag recent">2021</span>
+                        <img src="book/thaah.png" alt="थाह अथाह">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">थाह अथाह</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                January 2021
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹99</span> 
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 56 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A poetic exploration of the depths of emotions and the essence of life.</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i>
+                                Read More
+                            </a>
+                            <a href="https://www.amazon.in/Thaah-Athaah-Keshav-Shukla/dp/9391389120/ref=sr_1_13?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A4sbywnUtbyYUqGysZhB5NljqtAGLCB8eIIa-POVWiP10FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.ofCHFVEw_PujuWZYFNQJ0V4yusXR00m8_DHa9FDcxHs&dib_tag=se&keywords=keshav+shukla&qid=1745471726&sprefix=keshav+shukl%2Caps%2C202&sr=8-13" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>  
+                        </div>
+                    </div>
+                </div>
+                <!-- Book 5 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag recent">2022</span>
+                        <img src="book/mangla.png" alt="मंगला">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">मंगला</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                September 2022
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹110</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 67 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A heartfelt collection of poems that reflect the beauty and struggles of life</p>
+                        <div class="button-group">
+                          <a href="#" class="btn read-more-btn">
+                              <i class="fas fa-book"></i>
+                              Read More
+                          </a>
+                          <a href="https://www.amazon.in/Mangla-Upanyas-Keshav-Shukla/dp/9355351984/ref=sr_1_16?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A4sbywnUtbyYUqGysZhB5NljqtAGLCB8eIIa-POVWiP10FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.ofCHFVEw_PujuWZYFNQJ0V4yusXR00m8_DHa9FDcxHs&dib_tag=se&keywords=keshav+shukla&qid=1745471726&sprefix=keshav+shukl%2Caps%2C202&sr=8-16" target="_blank" class="btn amazon-btn">
+                              <i class="fab fa-amazon"></i>
+                              Buy Now
+                          </a>
+                      </div>
+                </div>
+                </div>
+                <!-- Book 6 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2024</span>
+                        <img src="book/sambhavni.png" alt="...सम्भवामि युगे युगे">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">...सम्भवामि युगे युगे</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                October 2024
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹160</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 99 pages
+                            </span>
+                        </div>
+                        <p class="card-text"> ...सम्भवामि युगे युगे...</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Sambhawami-Yuge-Keshav-Shukla/dp/B0DK8S4W18/ref=sr_1_1?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A4sbywnUtbyYUqGysZhB5NljqtAGLCB8eIIa-POVWiP10FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.ofCHFVEw_PujuWZYFNQJ0V4yusXR00m8_DHa9FDcxHs&dib_tag=se&keywords=keshav+shukla&qid=1745471726&sprefix=keshav+shukl%2Caps%2C202&sr=8-1" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 7 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2023</span>
+                        <img src="book/manjhali.png" alt="मंझली">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">मंझली (उपन्यास)</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                November 2023
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹130</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 94 pages
+                            </span>
+                        </div>
+                        <p class="card-text"> मंझली...</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Manjhli-Keshav-Shukla/dp/B0CP433YWF/ref=sr_1_2?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A4sbywnUtbyYUqGysZhB5NljqtAGLCB8eIIa-POVWiP10FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.ofCHFVEw_PujuWZYFNQJ0V4yusXR00m8_DHa9FDcxHs&dib_tag=se&keywords=keshav+shukla&qid=1745471726&sprefix=keshav+shukl%2Caps%2C202&sr=8-2" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 8 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2021</span>
+                        <img src="book/tumhareliiye.png" alt="तुम्हारे लिए">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">तुम्हारे लिए</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                January 2021
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                               Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹99</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 62 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A heartfelt collection dedicated to loved ones</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Tumhare-Liye-Keshav-Shukla/dp/9391389872/ref=sr_1_3?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A4sbywnUtbyYUqGysZhB5NljqtAGLCB8eIIa-POVWiP10FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.ofCHFVEw_PujuWZYFNQJ0V4yusXR00m8_DHa9FDcxHs&dib_tag=se&keywords=keshav+shukla&qid=1745471726&sprefix=keshav+shukl%2Caps%2C202&sr=8-3" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 9 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2023</span>
+                        <img src="book/shak.png" alt="शक">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">शक : लघु उपन्यास</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                November 2023
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹99</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 50 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A novella exploring themes of doubt and trust</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Shak-Laghu-Upanyas-Keshav-Shukla/dp/B0CP46322P/ref=sr_1_9?crid=VIN6BF4SG530&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A_qlTVV7u2XNlUWU8CJfMP7epAuJYYzTuUag3myheNso0FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.8Zc0wxhvvNCPCWl4EKZsYQNQ5o7K1exnpOqjB907TWY&dib_tag=se&keywords=keshav+shukla&qid=1745486481&sprefix=keshav+shukl%2Caps%2C209&sr=8-9" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 10 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2023</span>
+                        <img src="book/aaya.png" alt="आया">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">आया : लघु उपन्यास</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                November 2023
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                               Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹99</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 56 pages
+                            </span>
+                        </div>
+                        <p class="card-text">An engaging novella exploring human relationships</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Aaya-Laghu-Upanyas-Keshav-Shukla/dp/B0CP3TFKYF/ref=sr_1_10?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A4sbywnUtbyYUqGysZhB5NljqtAGLCB8eIIa-POVWiP10FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.ofCHFVEw_PujuWZYFNQJ0V4yusXR00m8_DHa9FDcxHs&dib_tag=se&keywords=keshav+shukla&qid=1745471726&sprefix=keshav+shukl%2Caps%2C202&sr=8-10" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 11 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2020</span>
+                        <img src="book/kaal-paatra.png" alt="काल पात्र">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">काल पात्र</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                January 2020
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹99</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 63 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A philosophical exploration of time and destiny</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/kaal-Patra-keshav-shukla/dp/9390655234/ref=sr_1_11?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A4sbywnUtbyYUqGysZhB5NljqtAGLCB8eIIa-POVWiP10FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.ofCHFVEw_PujuWZYFNQJ0V4yusXR00m8_DHa9FDcxHs&dib_tag=se&keywords=keshav+shukla&qid=1745471726&sprefix=keshav+shukl%2Caps%2C202&sr=8-11" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 12 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2021</span>
+                        <img src="book/8din.png" alt="वो आठ दिन">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">वो आठ दिन</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                January 2021
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹99</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 44 pages
+                            </span>
+                        </div>
+                        <p class="card-text">An intense story spanning eight days</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Vo-Aath-Din-Keshav-Shukla/dp/9390655862/ref=sr_1_12?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A4sbywnUtbyYUqGysZhB5NljqtAGLCB8eIIa-POVWiP10FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.ofCHFVEw_PujuWZYFNQJ0V4yusXR00m8_DHa9FDcxHs&dib_tag=se&keywords=keshav+shukla&qid=1745471726&sprefix=keshav+shukl%2Caps%2C202&sr=8-12" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 13 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2022</span>
+                        <img src="book/gangathakur.png" alt="पत्रकारिता के गंगा-ठाकुर">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">पत्रकारिता के गंगा-ठाकुर</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                June 2022
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹99</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user" ></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 62 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A comprehensive look at journalism pioneers</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Patrakarita-Ke-Ganga-Thakur-Keshav-Shukla/dp/9355353782/ref=sr_1_14?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A4sbywnUtbyYUqGysZhB5NljqtAGLCB8eIIa-POVWiP10FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.ofCHFVEw_PujuWZYFNQJ0V4yusXR00m8_DHa9FDcxHs&dib_tag=se&keywords=keshav+shukla&qid=1745471726&sprefix=keshav+shukl%2Caps%2C202&sr=8-14" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 14 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2021</span>
+                        <img src="book/kahatkabir.png" alt="कहत कबीर">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">कहत कबीर</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                January 2021
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹99</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 66 pages
+                            </span>
+                        </div>
+                        <p class="card-text">Modern interpretations of Kabir's teachings</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Kahat-kabir-Keshav-shukla/dp/9390655919/ref=sr_1_15?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.XCeu-FO2Gil-vckmV9L2eHX3x6-4AiLIGt2rKIgYdqtLiIzokoYEeS1lbH1EZDIN3Sn43byruqEq6Fdw_8l7A4sbywnUtbyYUqGysZhB5NljqtAGLCB8eIIa-POVWiP10FR4eT52Zaiipqfj7DqOF_Zt_DtlvrIJ9LU8f-IYX6lV7gjDeFUiK0MBnUTMeigfX7A6s2VI_NoM-MbEWW482MDewWcIYCpWSTs9xoNjfrw.ofCHFVEw_PujuWZYFNQJ0V4yusXR00m8_DHa9FDcxHs&dib_tag=se&keywords=keshav+shukla&qid=1745471726&sprefix=keshav+shukl%2Caps%2C202&sr=8-15" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 15 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2023</span>
+                        <img src="book/vanshika.png" alt="वंशिका">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">वंशिका</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                November 2023
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹190</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 149 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A story of heritage and legacy</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Vanshika-Keshav-Shukla/dp/B0CP4348H6/ref=sr_1_18?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.yp6HJZg5wgf9hbjrve_8fXHrjK_WDT3mc6lz02Hu_ZyyWlZxCWNGjVauXITuuEtR5uAuxU9iOzrFf51xMqameWCWYCe6w9hC7mFRJvyN6R7qTkqfF0_sacb6zlnsHFG8vqW5oZ928vCPj-qKDSV-V2-3Ibw9D6FkYs4hP5dZlagVX5GbnCtfXu-C6sMXBQJwQ2UCqvI18Pe78-Qzb8IMgY-S0IGxH-uBEmJwYhjfmio.N7SsyshR2N2qw_EHQ63LeegPqeQrMPHCJfs3dDoSZIc&dib_tag=se&keywords=keshav+shukla&qid=1745473042&sprefix=keshav+shukl%2Caps%2C202&sr=8-18&xpid=QbTz0GgwpleBQ" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 16 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2020</span>
+                        <img src="book/baalgeet.png" alt="बाल-गीत">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">बाल-गीत</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                July 2020
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹160</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 149 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A collection of children's poetry</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Baal-Geet-Keshav-Shukla/dp/938975755X/ref=sr_1_17?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.yp6HJZg5wgf9hbjrve_8fXHrjK_WDT3mc6lz02Hu_ZyyWlZxCWNGjVauXITuuEtR5uAuxU9iOzrFf51xMqameWCWYCe6w9hC7mFRJvyN6R7qTkqfF0_sacb6zlnsHFG8vqW5oZ928vCPj-qKDSV-V2-3Ibw9D6FkYs4hP5dZlagVX5GbnCtfXu-C6sMXBQJwQ2UCqvI18Pe78-Qzb8IMgY-S0IGxH-uBEmJwYhjfmio.N7SsyshR2N2qw_EHQ63LeegPqeQrMPHCJfs3dDoSZIc&dib_tag=se&keywords=keshav+shukla&qid=1745473042&sprefix=keshav+shukl%2Caps%2C202&sr=8-17&xpid=QbTz0GgwpleBQ" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 17 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2022</span>
+                        <img src="book/meethepaani.png" alt="मीठे पानी का कुआं">
+                    </div>
+                    <div class="card-body">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">मीठे पानी का कुआं : (कहानी-संग्रह)
+                        </h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                June 2022
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹120</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 89 pages
+                            </span>
+                        </div>
+                        <p class="card-text">Tales of adventure and discovery</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Mithe-Pani-Ka-Kuan-kahani-Sangrah/dp/9355353766/ref=sr_1_19?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.yp6HJZg5wgf9hbjrve_8fXHrjK_WDT3mc6lz02Hu_ZyyWlZxCWNGjVauXITuuEtR5uAuxU9iOzrFf51xMqameWCWYCe6w9hC7mFRJvyN6R7qTkqfF0_sacb6zlnsHFG8vqW5oZ928vCPj-qKDSV-V2-3Ibw9D6FkYs4hP5dZlagVX5GbnCtfXu-C6sMXBQJwQ2UCqvI18Pe78-Qzb8IMgY-S0IGxH-uBEmJwYhjfmio.N7SsyshR2N2qw_EHQ63LeegPqeQrMPHCJfs3dDoSZIc&dib_tag=se&keywords=keshav+shukla&qid=1745473042&sprefix=keshav+shukl%2Caps%2C202&sr=8-19&xpid=QbTz0GgwpleBQ" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Book 18 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2023</span>
+                        <img src="book/jaljahaj.png" alt="जल जहाज के पंछी">
+                        </div>    
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">जल जहाज के पंछी</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                November 2023
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹110</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 66 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A collection of stories about water and life</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            
+                            </a>
+                            <a href="https://www.amazon.in/Jal-Jahaj-Panchhi-Keshav-Shukla/dp/B0CP3ZTYWK/ref=sr_1_20?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.yp6HJZg5wgf9hbjrve_8fXHrjK_WDT3mc6lz02Hu_ZyyWlZxCWNGjVauXITuuEtR5uAuxU9iOzrFf51xMqameWCWYCe6w9hC7mFRJvyN6R7qTkqfF0_sacb6zlnsHFG8vqW5oZ928vCPj-qKDSV-V2-3Ibw9D6FkYs4hP5dZlagVX5GbnCtfXu-C6sMXBQJwQ2UCqvI18Pe78-Qzb8IMgY-S0IGxH-uBEmJwYhjfmio.N7SsyshR2N2qw_EHQ63LeegPqeQrMPHCJfs3dDoSZIc&dib_tag=se&keywords=keshav+shukla&qid=1745473042&sprefix=keshav+shukl%2Caps%2C202&sr=8-20&xpid=QbTz0GgwpleBQ" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+
+                <!-- Book 19 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag old">2023</span>
+                        <img src="book/shanichari.png" alt="शनिचरी मत जइयो">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">शनिचरी मत जइयो</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                March 2023
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹145</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 135 pages
+                            </span>
+                        </div>
+                        <p class="card-text">Folk tales and cultural narratives</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            
+                            </a>
+                            <a href="https://www.amazon.in/Shanichari-Mat-Jaiyo-Keshav-Shukla/dp/9390192749/ref=sr_1_21?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.yp6HJZg5wgf9hbjrve_8fXHrjK_WDT3mc6lz02Hu_ZyyWlZxCWNGjVauXITuuEtR5uAuxU9iOzrFf51xMqameWCWYCe6w9hC7mFRJvyN6R7qTkqfF0_sacb6zlnsHFG8vqW5oZ928vCPj-qKDSV-V2-3Ibw9D6FkYs4hP5dZlagVX5GbnCtfXu-C6sMXBQJwQ2UCqvI18Pe78-Qzb8IMgY-S0IGxH-uBEmJwYhjfmio.N7SsyshR2N2qw_EHQ63LeegPqeQrMPHCJfs3dDoSZIc&dib_tag=se&keywords=keshav+shukla&qid=1745473042&sprefix=keshav+shukl%2Caps%2C202&sr=8-21&xpid=QbTz0GgwpleBQ" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 20 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag classic">2020</span>
+                        <img src="book/basant.png" alt="बोनसाई बसंत">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">बोनसाई बसंत</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                January 2020
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹105</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 84 pages
+                            </span>
+                        </div>
+                        <p class="card-text">Poetry celebrating nature and growth</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Bonasai-Basant-Keshav-Shukla/dp/9390192730/ref=sr_1_22?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.yp6HJZg5wgf9hbjrve_8fXHrjK_WDT3mc6lz02Hu_ZyyWlZxCWNGjVauXITuuEtR5uAuxU9iOzrFf51xMqameWCWYCe6w9hC7mFRJvyN6R7qTkqfF0_sacb6zlnsHFG8vqW5oZ928vCPj-qKDSV-V2-3Ibw9D6FkYs4hP5dZlagVX5GbnCtfXu-C6sMXBQJwQ2UCqvI18Pe78-Qzb8IMgY-S0IGxH-uBEmJwYhjfmio.N7SsyshR2N2qw_EHQ63LeegPqeQrMPHCJfs3dDoSZIc&dib_tag=se&keywords=keshav+shukla&qid=1745473042&sprefix=keshav+shukl%2Caps%2C202&sr=8-22&xpid=QbTz0GgwpleBQ" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 21 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag classic">2023</span>
+                        <img src="book/sanskriti.png" alt="कॉलर पकड़ संस्कृति">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">कॉलर पकड़ संस्कृति</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                March 2023
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹135</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 111 pages
+                            </span>
+                        </div>
+                        <p class="card-text">Essays on modern culture and society</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="http://amazon.in/Kolar-Pakad-Sanskriti-Keshav-Shukla/dp/8194696135/ref=sr_1_24?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.yp6HJZg5wgf9hbjrve_8fXHrjK_WDT3mc6lz02Hu_ZyyWlZxCWNGjVauXITuuEtR5uAuxU9iOzrFf51xMqameWCWYCe6w9hC7mFRJvyN6R7qTkqfF0_sacb6zlnsHFG8vqW5oZ928vCPj-qKDSV-V2-3Ibw9D6FkYs4hP5dZlagVX5GbnCtfXu-C6sMXBQJwQ2UCqvI18Pe78-Qzb8IMgY-S0IGxH-uBEmJwYhjfmio.N7SsyshR2N2qw_EHQ63LeegPqeQrMPHCJfs3dDoSZIc&dib_tag=se&keywords=keshav+shukla&qid=1745473042&sprefix=keshav+shukl%2Caps%2C202&sr=8-24&xpid=QbTz0GgwpleBQ" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 22 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag classic">20222</span>
+                        <img src="book/basera.png" alt="बसेरा">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">बसेरा</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                March 2022
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹170</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 146 pages
+                            </span>
+                        </div>
+                        <p class="card-text">Stories of home and belonging</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Basera-Keshav-Shukla/dp/9355352115/ref=sr_1_25?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.yp6HJZg5wgf9hbjrve_8fXHrjK_WDT3mc6lz02Hu_ZyyWlZxCWNGjVauXITuuEtR5uAuxU9iOzrFf51xMqameWCWYCe6w9hC7mFRJvyN6R7qTkqfF0_sacb6zlnsHFG8vqW5oZ928vCPj-qKDSV-V2-3Ibw9D6FkYs4hP5dZlagVX5GbnCtfXu-C6sMXBQJwQ2UCqvI18Pe78-Qzb8IMgY-S0IGxH-uBEmJwYhjfmio.N7SsyshR2N2qw_EHQ63LeegPqeQrMPHCJfs3dDoSZIc&dib_tag=se&keywords=keshav+shukla&qid=1745473042&sprefix=keshav+shukl%2Caps%2C202&sr=8-25&xpid=QbTz0GgwpleBQ" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 23 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <span class="year-tag classic">2020</span>
+                        <img src="book/chalte-chalte.png" alt="पत्रकारिता पर केंद्रित चलते चलते">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" translate="no">पत्रकारिता पर केंद्रित चलते चलते</h5>
+                        <div class="book-tags">
+                            <span class="book-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                June 2020
+                            </span>
+                            <span class="book-tag">
+                                <i class="fas fa-book"></i>
+                                Paperback
+                            </span>
+                        </div>
+                        <div class="price-tag">
+                            <span class="current-price">₹190</span>
+                        </div>
+                        <div class="book-meta">
+                            <span class="book-meta-item">
+                                <i class="fas fa-user"></i> Keshav Shukla
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-language"></i> Hindi
+                            </span>
+                            <span class="book-meta-item">
+                                <i class="fas fa-file-alt"></i> 178 pages
+                            </span>
+                        </div>
+                        <p class="card-text">A journalist's journey through changing times</p>
+                        <div class="button-group">
+                            <a href="#" class="btn read-more-btn">
+                                <i class="fas fa-book"></i> Read More
+                            </a>
+                            <a href="https://www.amazon.in/Patrakaarita-Par-Kendrit-Chalate/dp/9389757959/ref=sr_1_26?crid=1DBEYLX54SK5N&dib=eyJ2IjoiMSJ9.yp6HJZg5wgf9hbjrve_8fXHrjK_WDT3mc6lz02Hu_ZyyWlZxCWNGjVauXITuuEtR5uAuxU9iOzrFf51xMqameWCWYCe6w9hC7mFRJvyN6R7qTkqfF0_sacb6zlnsHFG8vqW5oZ928vCPj-qKDSV-V2-3Ibw9D6FkYs4hP5dZlagVX5GbnCtfXu-C6sMXBQJwQ2UCqvI18Pe78-Qzb8IMgY-S0IGxH-uBEmJwYhjfmio.N7SsyshR2N2qw_EHQ63LeegPqeQrMPHCJfs3dDoSZIc&dib_tag=se&keywords=keshav+shukla&qid=1745473042&sprefix=keshav+shukl%2Caps%2C202&sr=8-26&xpid=QbTz0GgwpleBQ" target="_blank" class="btn amazon-btn">
+                                <i class="fab fa-amazon"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+
+            </div>
+        </div>
+    
+    </section>
+
+    <!-- Modal -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 class="modal-title"></h3>
+            <div class="modal-text"></div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('bookModal');
+        const modalTitle = modal.querySelector('.modal-title');
+        const modalText = modal.querySelector('.modal-text');
+        const readMoreBtns = document.querySelectorAll('.read-more-btn');
+        const closeModal = document.querySelector('.close-modal');
+
+        const bookContents = {
+            'mui': {
+                title: 'मुई मरजानी (उपन्यास)',
+                content: 'मेरा पहला उपन्यास " सज रही गली मेरी माँ " के बाद यह दूसरा "मुई मरजानी" है जो किन्नरों पर ही केंद्रित है । पूर्व के उपन्यासकारों ने किन्नरों पर जो उपन्यास लिखे हैं, उनमें एक पात्र किन्नर भी है किंतु " मुई मरजानी "के मुख्य पात्र एवं घटनक्रम किन्नरों पर ही केंद्रित हैं । मुझे लगा कि किन्नरों पर यह समूचा उपन्यास केंद्रित होने के बाद भी मैं किन्नरों के जीवन के साथ सही न्याय नहीं कर पाया हूँ । फलतः यह दूसरा उपन्यास " मुई मरजानी" लिखा, जिसका प्रकाशन हो रहा है । उपन्यास का प्लाट तो दिमाग में आ गया किंतु पुस्तक का शीर्षक कुछ नहीं सूझ रहा था।एक दिन बॉलीवुड एवं टीवी के कलाकार सुनीलदत्त मिश्र जी से मेरी फोन पर बात हुई । दरअसल उन्होंने एक टेली फिल्म का निर्माण किया जिसका नाम है " भले दिनों की बात ।" उसके बारे में उन्होंने मुझे बताया । सज रही गली मेरी माँ को भी उन्होंने पढ़ा है । इस बारे में बात करते उन्होंने कहा कि उनकी फिल्म में भी एक किन्नर पात्र है जो गाली बकती है मुई मरजानी उसकी ज़ुबान में बसी गाली है । मैंने तभी उनसे कहा दिया कि यह गाली मैं ले रहा हूँ । वही मुई मरजानी मेरे इस दूसरे उपन्यास का शीर्षक है ।',
+                releaseDate: '2 December 2024',
+                format: 'Paperback'
+            },
+            'saj': {
+                title: 'साज',
+                content: 'प्रस्तुत उपन्यास किन्नरों पर केंद्रित है । इस उपन्यास को लिखने की भूमिका यूँ बनी कि भाषाविद् डॉ.विनय कुमार पाठक जी जो मेरे बड़े भैया हैं उनका शोधग्रंथ "लैंगिक विकलांग - विमर्श : दशा और दिशा मुझे पढ़ने को मिला । मन में आया कि इस पर क्यों न मैं एक उपन्यास लिखने की कोशिश करूं? बहुत दिनों तक इसी उधेड़बुन में मैं रहा कि लिखूँ या न लिखूँ । विषय ऐसा है कि उस पर क़लम चलाते हुए एक अज्ञात भय लग रहा था । मैंने डॉ. विनय भैया से इस पर चर्चा करना मुनासिब समझा । उन्होंने न केवल स्वीकृति दी वरन् इस बात का आश्वासन दिया कि वे इसकी भूमिका लिखेंगे । उनका यह कथन मेरा आत्मबल बना और लिखना शुरू कर दिया । फलतः यह उपन्यास आपके हाथों में है ।',
+                releaseDate: '24 November 2023',
+                format: 'Paperback'
+            },
+            'bhavna': {
+                title: 'भावना',
+                content: 'An emotional journey through words that touches the heart ',
+                releaseDate: ' July 2024',
+                format: 'Paperback'
+            },
+
+            'taah': {
+                title: 'थाह अथाह',
+                content: 'A poetic exploration of the depths of emotions and the essence of life.',
+                releaseDate: 'January 2021',
+                format: 'Paperback'
+            },
+
+            'mangla': {
+                title: 'मंगला',
+                content: "'मंगला' एक ऐसी स्त्री का आख्यान है जो परिवार के प्रबंधन और संरक्षण-संवर्धन के लिए सर्वस्व समर्पण द्वारा स्वत्व का त्याग कर देती है। वह घर-परिवार के दायित्व निर्वाह को केंद्रस्थ करके न अपने स्वप्न को साकार कर पाती है, न ही प्रीति की पावन प्यार को स्वीकार कर पाती है। मंगला जैसा दुर्लभ-दुष्कर, निस्वार्थ-निष्कपट चरित्र आज भी जीवंत हैं इसीलिए संस्कृति संरक्षित है, और घर-परिवार आरक्षित | मंगला के कोमल-कमनीय कंधों पर उस समय परिवार का बोझ आ जाता है जब उसके भविष्य को सँवारने और सपनों को सहेजने के सुनहले-रुपहले क्षण होते हैं। वह संस्कारी है अतः अभिभावक का आश्रय-ग्रहण करती है। वह पूरी है अत: बिखरने के पहले घर को संजोती है। वह बलिदानी है अत: अभिलाषाओं को कुचल कर सबको समुन्नत करती है। वह आद्यन्त हर पल, हर क्षण महसूस करती है कि वह सबकी है लेकिन उसका कोई नहीं। इस तरह सब गंतव्य की ओर गमन कर जाते हैं। वह ऐसी आश्रयदाता पक्षी है जो सबको पालती-पोषती और पंख देती है। उड़ान की दर्जा पाकर एक-एक करके सब नए नीड़ के अन्वेषण में निकल पड़ते हैं।",
+                releaseDate: '20 July 2020',
+                format: 'Paperback'
+            },
+            'book6': {
+                title: '...सम्भवामि युगे युगे',
+                content: '...सम्भवामि युगे युगे...',
+                releaseDate: '9 October 2024',
+                format: 'Paperback'
+            },
+            'book7': {
+                title: 'मंझली (उपन्यास)',
+                content: 'मेरा तीसरा उपन्यास "मंझली" है । नारी पात्र पर केंद्रित इस उपन्यास में मंझली बहू के माध्यम से परिवार को पूरी तरह समझने की कोशिश हुई है । यूं तो मेरा यह उपन्यास तीसरा है । पहला उपन्यास "बसेरा" है जिसकी मुझे पर्याप्त प्रशंसा मिली । इससे प्रेरित होकर मैंने "मंगला" लिखी । वह भी लोगों ने पसंद की । अब उन्हें मंझली सौंपते हुए मुझे बेहद खुशी हो रही है ।। मंझली वह बहू है जो बड़ी बहू और छोटी बहू के बीच फंसी हुई पिस रही है । वह ही नहीं उसका बेटा और उसका पति भी पीड़ित है क्योंकि हमारे समाज की मनोदशा में अब भी कोई बदलाव नहीं आया है । हम ऊपर से आधुनिक और अंदर से वही पुरानी परिपाटी से नहीं उबर पाये हैं । माता, पिता, दादू, दादी यहां तक कि नानू, नानी भी जिस आकांक्षाओं को मन में पाल कर कभी रखा था वह कभी पूरा नहीं हुआ । कुल - परिवार एक अदद सफलता का मुख नहीं देख सका । उपन्यास की नायिका सुमन ने भी कभी सपना देखा था जिससे पूरा करने उसने पूरा प्रयास किया पर..। और वही सपना बेटे ने पूरा कर दिया तब उसकी खुशी का अंदाज लगा पाना संभव नहीं है । सुमन अपना नाम भूल चुकी है । उसे याद है तो इतना कि वह देखो मंझली का बेटा है । मंझली के बाद उसेके बेटे ने "मंझली का बेटा" होने की विरासत पा ली । मुझे विश्वास है कि यह उपन्यास परिवारों को बल देगा । आज परिवार टूटते-टूटते नष्ट हो चुका है । परिवार का मायने बदल गया है,परिभाषा बदल गई है । बड़े परिवार एकाकी परिवार बन गए हैं जिसमें माता-पिता और एक पुत्र या पुत्री ही रहते हैं । समाज इससे टूटन से मजबूत हुआ या कमजोर विचारणीय है ।',
+                releaseDate: '24 November 2023',
+                format: 'Paperback'
+            },
+            'book8': {
+                title: 'तुम्हारे लिए',
+                content: 'A collection of poems dedicated to loved ones...',
+                releaseDate: '1 January 2021',
+                format: 'Paperback'
+            },
+            'book9': {
+                title: 'शक : लघु उपन्यास',
+                content: 'रिश्तों के बीच अनसुलझी डोर को सुलझाने की कोशिश से जन्म लेता है यह उपन्यास "शक" । विश्वासों का धागा बड़ा कच्चा और कमजोर होता है इसलिए वह बड़ी जल्दी टूट भी जाता है तथा टूटने के बाद कभी जुड़ नहीं पाता । यह रिश्ता पति-पत्नी का हो,माँ-बेटे का हो, सास-बहू का हो चाहे अन्य । भारतीय समाज में रिश्तों का महत्व विश्व समाज के रिश्तों से अलग और अनूठा है । मैंने रिश्तों के अंतर में झांकने का प्रयास किया । आश्चर्य है कि हमारे समाज में "शक" की बुनियाद बहुत गहरी है । यह अंदर ही अंदर समाज और रिश्तों को खोखला कर रही हैं । भरे-पूरे परिवार टूट रहे हैं,बसी-बसाई गृहस्थी उजड़ती जा रही है । इस ओर यदि ध्यान नहीं दिया गया तो एक दिन आदिम और बर्बर समाज का जन्म हो जाएगा, सभ्यता, संस्कृति पूरी तरह नष्ट हो जाएगी । वर्तमान दौर में बहुत सारे रिश्ते खत्म हो गए हैं । आंटी-अंकल जैसे रिश्ते सामने आ गये हैं । मामा-मामी, नाना-नानी, दादू-दादी यहां तक कि बुआ-फूफा जैसे रिश्ते तिरोहित हो रहे हैं । आंटी और अंकल हर रिश्ते पर हावी हो गया है । परिवार संकुचन का शिकार है । जहां रिश्तों की गहराई अथाह हुआ करती थी । लोग कहते थे कि रिश्तों की पूंछ तो हनुमान जी के पूंछ की तरह लंबी होती जा रही है । कई पुश्तों और सदियों पुराने रिश्ते इस तरह निभाये जाते थे जैसे कल के हों और आज ये हाल है कि पति-पत्नी के ही रिश्ते में दरारें दिखाई देती हैं । शक आज आत्महंता हो गई है । अपराध भी शक के कारण हो रहे हैं पौराणिक कथाएं दंत कथाएं बन गई हैं । संस्कार दकियानूसी, रूढ़िवादिता में गिना जाता है । अंग्रेजी लाइफ स्टाइल हमें कहां ले जा रही है,यह पता नहीं है । ऐसे समय क़लम और कलमकारों की जिम्मेदारी बढ़ गई है । शक बात-बेबात भी उत्पन्न हो जाता है जिसका कोई समाधान ही नहीं होता । शक का कथानक दो पात्रों के इर्दगिर्द चक्कर काटता है ।',
+                releaseDate: '24 November 2023',
+                format: 'Paperback'
+            },
+            'book10': {
+                title: 'आया : लघु उपन्यास',
+                content: 'हमारा देश विकासशील देश है।विकास तो बहुत हुआ है।नगर से हम महानगरीय सभ्यता में आ गए हैं किंतु इस विकास के साथ बुराइयों की बाढ़ भी बहुत आई है।लोग इतने ज्यादा व्यस्त हो गए हैं कि किसी के पास आज समय नहीं बच गया है।ग्लोबलाइजेशन का दबाव इस बुरी तरह जनमानस पर पड़ा है कि वह दिन भर ही नहीं रात-रात भर अपना घर छोड़कर बाहर भटकने को मजबूर है।माता-पिता से युक्त होने के बावजूद आज माता-पिता से विहीन है बच्चा।वह " आया " के भरोसे पल रहा है। आया वह होती है जो माँ नहीं होती,माँ जैसी होती है।आपा-धापी के इस युग में आदमी भागा चला जा रहा है......भागा चला जा रहा है।उसे यह भी होश नहीं रह गया है कि वहां जा रहा है?इस भागम-भाग का कहीं अंत है ?आदमी का अंत तो दिखता है पर उसकी जिजीविषाएँ,उसकी लिप्साएं, उसकी महत्वाकांक्षाएं अंतहीन हैं।इनसे परे नहीं है आया।उसपर भी तो देश,काल,वातावरण का प्रभाव पड़ता ही है।उसे भी अपना जीवन चलाने के लिये संघर्ष करना पड़ता है।उसके बच्चे भी पिज्जा,बर्गर मांगते हैं।आया वो माँ होती है जो बच्चे को जन्म तो नहीं देती पर जन्मदात्री माँ जैसी ही होती है।मेरा यह लघुउपन्यास "आया" ऐसी ही माँ पर केंद्रित है। आया के यदि अपने बच्चे हैं तो उसे अपने बच्चों के ममत्व का हिस्सा उन बच्चों को बांटनी पड़ती है जिसकी वो आया है।एक नारी कितना बंट सकती है ? इस पर विमर्श करता है यह उपन्यास।यह काल्पनिक ही है पर वास्तविकता से इसका नाता बहुत साफ तौर पर आपको इसे पढ़ते वक़्त लग सकता है।इस उपन्यास के सभी पात्र,घटनाएं काल्पनिक हैं।इसके बावजूद इसे पढ़ते हुए आपको यह कहीं अपने आसपास की बात लगेगी।',
+                releaseDate: '24 November 2023',
+                format: 'Paperback'
+            },
+            'book11': {
+                title: 'काल पात्र',
+                content: '"सन् 72-74 में जब केंद्र में कांग्रेस की सत्ता थी और तत्कालीन प्रधानमंत्री श्रीमती इंदिरा गांधी थीं तब एक काल-पात्र दफ़नाया गया था।कहा जाता था कि उसमें कांग्रेस का इतिहास दर्ज था।उस समय काल-पात्र को लेकर कांग्रेस और श्रीमती गांधी की ज़बरदस्त आलोचना हुई।कांग्रेस का डाउन फाल हुआ और सत्ता में जनता पार्टी (जेपी) आ गई।काल-पात्र को खुदवा दिया गया। यह काल-पात्र मेरे दिमाग में भूत बनकर बैठा हुआ था।इस पर मैंने लिखना चालू किया तो एक पुस्तक के लायक सामग्री एकत्र हो गई।मेरे काल-पात्र का उस काल-पात्र से सिर्फ इतना सा संबंध है कि वह दफ़नाया गया था और यह भी दफ़न था,वह भी खुदवाया गया और यह भी खुदवाया गया।उस काल-पात्र से क्या निकला यह तो पता नहीं किन्तु मेरे काल-पात्र से मुर्दे पात्र बाहर आते हैं।उनका समय और वर्तमान समय में आया फ़र्क, विसंगतियां,विद्रूपताएं इस पात्र से एक-एक कर बाहर आती हैं। मुर्दे पात्रों के माध्यम से जिंदा हालातों पर चर्चा करने की कोशिश मैंने की है।मैं इसमें कहां तक सफल हुआ हूं यह तो पाठक बताएंगे।दूसरी बात यह है मेरी पुत्री कु.रति शुक्ला ने एक डिजाइन तैयार कर मुझे दी।इसमें दीवाल घड़ी ,उसके कांटे और उस पर आदमी की छाया बनी हुई थी।इसे देखकर ही मेरे दिमाग का भूत बेचैन हो गया।फलतः काल-पात्र की कड़ियां बनती गईं।वास्तव में इस पुस्तक की क़लम मेरी है पर सारी कल्पना मेरी बेटी की है।पुस्तक के आवरण पृष्ठ का डिजाइन मेरी इसी बेटी ने तैयार किया है। आप इसे अवश्य पढ़ें।यह किताब आपको मनोरंजन के साथ ही बहुत कुछ विषय सामग्री देगी।ऐसी आशा है।जब आप किसी लेखक की पुस्तक लेते हैं तो वह लेखन के क्षेत्र में आपका बड़ा योगदान होता है।अपेक्षा है कि इसे पढ़कर अपनी राय से मुझे अवगत कराएंगे। "',
+                releaseDate: '1 January 2020',
+                format: 'Paperback'
+            },
+            'book12': {
+                title: 'वो आठ दिन',
+                content: 'An intense story spanning eight days...',
+                releaseDate: '1 January 2021',
+                format: 'Paperback'
+            },
+            'book13': {
+                title: 'पत्रकारिता के गंगा-ठाकुर',
+                content: 'A comprehensive look at journalism pioneers...',
+                releaseDate: '19 June 2022',
+                format: 'Paperback'
+            },
+            'book14': {
+                title: 'कहत कबीर',
+                content: 'संक्षिप्त परिचय केशव शुक्ला पिता-स्व.जगदीश प्रसाद शुक्ल माता-स्व.कमला देवी शुक्ल जन्म तिथि-6 अक्टूबर 1953 स्थान-बिलासपुर, छत्तीसगढ़ शिक्षा-बी.ए., एल.एल.बी. संपादन सहयोग-मड़ई, बिलासपुर प्रकाशित-शनिचरी मत जइयो (व्यंग्य संग्रह) कॉलर पकड़ संस्कृति (व्यंग्य संग्रह) सवेरे-सवेरे प्रकाशनाधीन-बालगीत, घोड़ादाना स्कूल (व्यंग्य)/चलते-चलते/ चुटकी भर धूप बोनसाई वसंत (लघु व्यंग्य संग्रह), द्वितीय संस्करण शनिचरी मत जइयो और कॉलर पकड़ संस्कृति। आकाशवाणी रायपुर से अनेक व्यंग्य लेखों का प्रसारण, अनेक पत्र-पत्रिकाओं में लेख प्रकाशित। सम्मान--रावत नाच महोत्सव आयोजन समिति बिलासपुर बिलासा कला मंच बिलासपुर राष्ट्रीय व्यंग्य सम्मेलन में व्यंग्य यात्रा (पत्रिका) नई दिल्ली से सम्मानित राष्ट्रीय उद्योग एवं व्यापार मेला में ’छत्तीसगढ़ रत्न’ सम्मान। प्रदेश सक्रिय पत्रकार संघ द्वारा सम्मान।',
+                releaseDate: '1 January 2021',
+                format: 'Paperback'
+            },
+            'book15': {
+                title: 'वंशिका',
+                content: 'वंशिका उपन्यास को लिखते समय वह समय ध्यान में आया जब राजवंशों का सूर्य अस्त हो रहा था । राजे-महाराजे देश में गिने-चुने रह गए थे । प्रीवीपर्स यानी जेब खर्च मिलता था । राजशाही खत्म हो गई थी । बड़े-बड़े किले खंडहर में बदल चुके थे । किले का एक खंडहर मुझे सन १९७० के दशक में अजयगढ़ की पहाड़ियों में देखने को मिला । किला क्या था भूतिया महल था । दरवाजे, खिड़कियां गायब हो गई थीं । छतों में चमगादड़ लटके हुए थे । एक अजीब सी दुर्गंध वहां फैली हुई थी । मकड़ी के जाले भी चारों तरफ दिखाई पड़ रहे थे । राजवंश पस्त पड़ गया था । राजकोष उड़ चुका था । हालत यह थी महल की चीजें बिककर पाकशाला को गर्म कर रही थीं इन हालातों में जो कभी सड़क पर नहीं आए थे उन्हें आना पड़ा । इन हालतों को लेकर उपन्यास में कथानक की बुनावट की गई है । आशा है आपको अच्छी लगेगी । अजयगढ़ जो लोग गए होंगे वे जानते होंगे बहुत सुंदर जगह है, यह । चारों ओर से पहाड़ियों से घिरा हुआ है । यहां सतना से बस द्वारा जाया जाता है अजयगढ़ । बस अनेक घाटों से उतार कर अजयगढ़ पहुंचती है । यहां की यात्रा के दौरान बाहर के दृश्य भी बड़े सुहावने लगते हैं । बारिश के दिन थे जब मैं अजयगढ़ पहुंचा था । बरसात शुरू हुई तो मैंने छत पर से देखा कि पहाड़ी के शिखर पर पानी की बूंदें टपक रही हैं । वर्षा तेज हुई तो ऐसा लगा मानों वर्षा के पांव निकल आए हों । बूंदें पहाड़ी से दौड़ती हुई उतर रही हैं । इस तरह छ्त में खड़े मुझ तक वर्षा को लगभग दस मिनट लग गए पहुंचने में । मोर की तेज कूजने की आवाजें वातावरण को और भी रम्य बना रही थीं । मैं कभी किसी राजपुरुष से नहीं मिला फिर भी मैंने राजवंशों पर लिखने का दुस्साहस किया है तो उसकी वजह आप सब का संबल है ।',
+                releaseDate: '24 November 2023',
+                format: 'Paperback'
+            },
+            'book16': {
+                title: 'बाल-गीत',
+                content: 'बुक क्लिनिक से पहला काव्य संग्रह-सवेरे-सवेरे-के प्रकाशन के बाद बाल-गीत संग्रह और अब पत्रकारिता पर केंद्रित-गद्य संग्रह "चलते-चलते"प्रकाशित होने जा रहा है।यह मेरे लिए अत्यंत हर्ष का विषय है।प्रकाशक टीम के प्रति मैं ह्रदय से आभार व्यक्त करता हूं। केशव शुक्ला- पत्रकार कॉलोनी गौरव-पथ रिंग रोड बिलासपुर छत्तीसगढ़',
+                releaseDate: '24 July 2020',
+                format: 'Hardcover'
+            },
+            'book17': {
+                title: 'मीठे पानी का कुआं',
+                content: 'Stories of rural life and transformation...',
+                releaseDate: '19 June 2022',
+                format: 'Paperback'
+            },
+            'book18': {
+                title: 'जल जहाज के पंछी',
+                content: 'जल जहाज के पंछी लघु उपन्यास एक मध्यमवर्गी परिवार के उतार- चढ़ाव की कहानी है । मिल मजदूर का लड़का रमेश पढ़-लिखकर मास्टर बन पाता है । जिंदगी की जद्दोजहद तब शुरू होती है जब माता-पिता तीन छोटे भाई और एक छोटी बहन की परवरिश का भार सौंपकर मर जाते हैं । रमेश और उसकी पत्नी सीमा ने यह भार उठाया । इसमें वे कहां तक सफल हो पाते हैं यह उपन्यास का विषय-वस्तु है । जल जहाज के ऊपर पंछियों का झुंड भी सफ़र करता है । पंछी थकते हैं तो वे जहाज की डेक पर उतर कर बैठ जाते हैं । समुद्र में तैरती मछलियां उन पंछियों के पेट भरने का चारा बनती हैं । संघर्षों में जूझते परिवार के समक्ष सुख-दुख के अनेक प्रसंग आते हैं जो कथानक को बांधे रखते हैं । भाषा सहज-सरल होने की वज़ह से वह आम पाठकों के ह्रदय को स्पर्श करती चलती है ।',
+                releaseDate: '24 November 2023',
+                format: 'Hardcover'
+            },
+            'book19': {
+                title: 'शनिचरी मत जइयो',
+                content: '"सन् 1970 के दशक से मेरा लिखना बराबर बना रहा है।सन् 84/85 में मैं विधिवत् पत्रकारिता के क्षेत्र में आया।साहित्य से पत्रकारिता में आने के बाद लेखन कम नहीं हुआ पर साहित्य लेखन को विराम लग गया। व्यंग्य विधा में लेखन के दौरान विभिन्न पत्र-पत्रिकाओं में मेरे लेख बहुत छपे।इनमें देशबंधु का अवकाश अंक,प्रेरणा पुंज अमरावती, नवभारत नागपुर,अमृत संदेश रायपुर, दैनिक भास्कर भोपाल-आह- वाह,संकल्प पत्रिका पटना, बिहार,आनन्द पत्रिका, कोलकाता आदि शामिल हैं। प्रकाशित व्यंग्य आलेखों को मैंने पांडुलिपि के रूप में सहेजा।श्रध्देय हरिशंकर परसाई जी की मेरे लेखों के प्रति जो शुभाशीष मिली,उससे व्यंग्य संग्रह के प्रकाशन के लिए मुझे भरपूर प्रोत्साहन प्राप्त हुआ। श्री प्रकाशन,दुर्ग,छत्तीसगढ़ के भाई महावीर अग्रवाल जी ने मेरा पहला व्यंग्य संग्रह "" शनिचरी मत जइयो "" का प्रकाशन किया।उस समय प्रकाशित सारी पुस्तकें मैंने बांट दीं।मेरे पास एक प्रति भी शेष नहीं रह गई थी। काफी अरसे बाद एक सह्रदय को दी गई किताब मैं वापस मांग लाया।अब उसका द्वितीय संस्करण बुक क्लीनिक के माध्यम से प्रकाशित होने जा रहा है। सन् 2008 में पत्रकारिता से सेवा निवृत्त होने के बाद मैंने साहित्य लेखन की कोशिश शुरू की।आप सब लोगों की दुआ से मेरे अंदर का साहित्यकार मरा नहीं था।वह धीरे-धीरे फिर उठ खड़ा हुआ।साहित्य से पत्रकारिता में जाना सहज है पर पत्रकारिता से साहित्य में लौटना अत्यंत कठिन।ऊपर वाले की ही कृपा थी कि मैं लौट सका।आप सबसे ह्रदय की भावनाएं ज्यों की त्यों व्यक्त कर दिया।अपेक्षा है कि शनिचरी मत जइयो के दूसरे संस्करण को भी आपका प्यार मिलेगा। "',
+                releaseDate: '13 March 2023',
+                format: 'Paperback'
+            },
+            'book20': {
+                title: 'बोनसाई बसंत',
+                content: '"सन् 2008 में मेरे पैर के फ्रेक्चर के बाद प्रेस से मैंने अवकाश ले लिया। इसके बाद दिन भारी होने लगे तब मैंने लेखन का सहारा लिया। कम्प्यूटर में लिखने का कार्य शुरू किया।लेखन आज भी अनवरत रूप से जारी है। दिनचर्या में जब लोगों से हम मिलते-जुलते हैं और बातचीत करते हैं तो व्यंग्य के प्रसंग भी आते-जाते रहते हैं।ऐसे ही छोटे-छोटे प्रसंगों को मैंने लिखना आरंभ किया।',
+                releaseDate: '1 January 2020',
+                format: 'Hardcover'
+            },
+            'book21': {
+                title: 'कॉलर पकड़ संस्कृति',
+                content: 'Essays on modern culture and society...',
+                releaseDate: '13 March 2023',
+                format: 'Paperback'
+            },
+            'book22': {
+                title: 'बसेरा',
+                content: 'Stories of home and belonging...',
+                releaseDate: '30 March 2022',
+                format: 'Hardcover'
+            },
+            'book23': {
+                title: 'पत्रकारिता पर केंद्रित चलते चलते',
+                content: 'पत्रकारिता जीवन का अन्वेषण है चलते-चलते सन् 1984 से पत्रकारिता के क्षेत्र में मैं आया।इससे पूर्व गद्य व्यंग्य लिखा करता था।पत्रकारिता में आने के बाद जहां समाचार जगत से जुड़ा वहीं समाज से गहरा जुड़ाव बना।समाज से जुड़ाव ही आगे चल कर मेरी लेखनी का आधार बना। नगर से सांध्य दैनिक बिलासपुर टाइम्स निकला करता था जिसमें सन् 84 से उपसंपादक के पद पर कार्य किया।सन् 1993 में नगर से दैनिक भास्कर का संस्करण निकलना प्रारंभ हुआ।यहां सन् 2000 तक मैं काम किया। इसके बाद सन् 2001 से 8 तक दैनिक हरिभूमि में कार्य किया।अख़बारों में काम करने के दौरान खट्टे-अनुभवों से मैं दो चार हुआ।2008 में रिटायर होने के पश्चात फेसबुक पर आया तो मित्रों ने मुझे समकालीन पत्रकारिता पर लिखने को प्रेरित किया।समकालीन पत्रकारिता पर लिखना मेरे लिए कठिन था किंतु अपनी पत्रकारिता के संदर्भ में लिखना आसान।फलतः मैंने लिखना प्रारंभ कर दिया।51 किश्तें लिख डाला मैं तो मित्रों ने पुस्तक प्रकाशन के लिए प्रेरित किया।मेरी पत्रकारिता पर केंद्रित-"" चलते-चलते ""उन्हीं किश्तों का संकलन है। अपने परिवार ,मित्रों के सहयोग के लिए मैं ह्र्दयतल से आभारी तो हूं ही साथ ही आभारी हूं प्रकाशक बुक क्लिनिक और उसके स्टॉफ का जिन्होंने पुस्तक को न केवल सजाया-सँवारा वरन् आपके हाथों तक पहुंचाया। आभारी हूं साप्ताहिक चंदन केसरी अखबार के युवा संस्थापक प्रशांत सिंह का जिन्होंने हर तरह का सहयोग मुझे किया और हमेशा करते भी रहते हैं। ह्र्दयतल से अत्यंत आभारी हूं रमन विश्विद्यालय के प्रो.आर.पी दुबे कुलपति जी और गौरव शुक्ला कुलसचिव जी का जिन्होंने मुझे प्रोत्साहित किया।मेरे जीवन का यह सबसे महत्वपूर्ण समय है जब मेरी पत्रकारिता पर केंद्रित पुस्तक चलते-चलते का प्रकाशन होने जा रहा है,मेरी खुशी का ठिकाना नहीं है।',
+                releaseDate: '18 June 2020',
+                format: 'Paperback'
+            }
+        };
+
+        readMoreBtns.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const bookId = index === 0 ? 'mui' : 
+                              index === 1 ? 'saj' :
+                            index === 2 ? 'bhavna' :
+                            index === 3 ? 'taah' :
+                              index === 4 ? 'mangla' : 
+                              index === 5 ? 'book6' :
+                              index === 6 ? 'book7' :
+                              index === 7 ? 'book8' :
+                              index === 8 ? 'book9' :
+                              index === 9 ? 'book10' :
+                              index === 10 ? 'book11' :
+                              index === 11 ? 'book12' :
+                              index === 12 ? 'book13' :
+                              index === 13 ? 'book14' :
+                              index === 14 ? 'book15' :
+                              index === 15 ? 'book16' :
+                              index === 16 ? 'book17' :
+                              index === 17 ? 'book18' :
+                              index === 18 ? 'book19' :
+                              index === 19 ? 'book20' :
+                              index === 20 ? 'book21' :
+                              index === 21 ? 'book22' :
+                              index === 22 ? 'book23' : 'bhavna';
+                const book = bookContents[bookId];
+                if (book) {
+                    modalTitle.textContent = book.title;
+                    modalText.textContent = book.content;
+                }
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+ <!-- Footer -->
+ <footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Shreesurya Pushpa Foundation</h3>
+        <p>Empowering Lives, Enriching Communities through sustainable development initiatives. Together, we can make a difference in the lives of those who need it most.</p>
+        <div class="social-icons">
+        <a href=https://www.facebook.com/ShreeSuryaPushpaFoundation?rdid=Pe29XfFrB7dWCKFy&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18vvQP7Fq1%2F#" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://twitter.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://instagram.com/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://linkedin.com/company/ShreesuryaPushpaFoundation" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UC--UJH9mBcP7sBswF_yUsQw" target="_blank" rel="noopener" class="social-icon" aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="index.html#programs">Our Programs</a></li>
+          <li><a href="index.html#impact">Impact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Our Programs</h3>
+        <ul class="footer-links">
+          <li><a href="index.html#programs">Agriculture & Farming</a></li>
+          <li><a href="index.html#programs">Education & Literacy</a></li>
+          <li><a href="index.html#programs">Healthcare Initiatives</a></li>
+          <li><a href="index.html#programs">Environmental Projects</a></li>
+          <li><a href="index.html#programs">Women Empowerment</a></li>
+          <li><a href="index.html#programs">Skill Development</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contact Info</h3>
+        <ul class="footer-links">
+          <li>📍 Sarju Bagicha Masanganj, Bilaspur, Chhattisgarh 495001</li>
+          <li>📞 +91 81036 12005</li>
+          <li>✉️ shreesuryapushpa@gmail.com</li>
+        </ul>
+      </div>
+        
+      
+      
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2025 Shreesurya Pushpa Foundation. All Rights Reserved. | Designed with 💖 for social impact</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Add Google Translate API -->
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi',
+            layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+            autoDisplay: false,
+        }, 'google_translate_element');
+    }
+</script>
+<script src = "mobile-nav.js"></script>
+<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js" integrity="sha512-Ixzuzfxv1//OVkTZwnSWNkBqdS/MJKLNgh0po9SOdVTOBKzFb/nY/HKPx3X2XtjXRtRjN8Nq0Jo9UFwLPA9Pug==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+</body>
+</html>
